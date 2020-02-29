@@ -1,0 +1,30 @@
+# bigint-crypto-utils
+Convert to/from native JS implementation of bigint ([ECMA-262](https://tc39.es/ecma262/#sec-bigint-objects)) from/to:
+
+- buffer (node.js) or uint8array (native js),
+- hex string,
+- utf8 text string.
+
+It provides a common interface for the conversions that works both for both node.js and javascript native.
+
+## Installation
+
+bigint-conversion is distributed for [web browsers and/or webviews supporting BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt#Browser_compatibility) as an ES6 module or an IIFE file; and for Node.js as a CJS module.
+
+bigint-conversion can be imported to your project with `npm`:
+
+```bash
+npm install bigint-conversion
+```
+
+NPM installation defaults to the ES6 module for browsers and the CJS one for Node.js.
+
+For web browsers, you can also directly download the [IIFE file](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/dist/bigint-conversion-latest.browser.js) or the [ES6 module](https://raw.githubusercontent.com/juanelas/bigint-conversionmaster/dist/bigint-conversion-latest.browser.mod.min.js) from GitHub.
+
+> BigInt is currently [ECMA-262](https://tc39.es/ecma262/#sec-bigint-objects) and thus in order to use it with TypeScript you should set `lib` (and probably also `target` and `module`) to `esnext` in `tsconfig.json`.
+
+# bigint-conversion JS Doc
+
+{{>main}}
+
+* * *
