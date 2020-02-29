@@ -1,4 +1,4 @@
-# bigint-crypto-utils
+# bigint-conversion
 Convert to/from native JS implementation of bigint ([ECMA-262](https://tc39.es/ecma262/#sec-bigint-objects)) from/to:
 
 - buffer (node.js) or uint8array (native js),
