@@ -5,7 +5,7 @@ Convert to/from native JS implementation of bigint ([ECMA-262](https://tc39.es/e
 - hex string,
 - utf8 text string.
 
-It provides a common interface for the conversions that works both for both node.js and javascript native.
+It provides a common interface for the conversions that works for both node.js and javascript native.
 
 ## Installation
 
