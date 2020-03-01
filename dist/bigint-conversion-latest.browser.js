@@ -94,9 +94,11 @@ var bigintConversion = (function (exports) {
      */
     function bufToHex(buf) {
         {
-            var s = '';
-            h = '0123456789abcdef';
-            (new Uint8Array(buf)).forEach((v) => { s += h[v >> 4] + h[v & 15]; });
+            let s = '';
+            const h = '0123456789abcdef';
+            buf.forEach((v) => {
+                s += h[v >> 4] + h[v & 15];
+            });
             return s;
         }
     }
@@ -109,7 +111,7 @@ var bigintConversion = (function (exports) {
      */
     function hexToBuf(hex_str) {
         {
-            return new Uint8Array(hex_str.match(/[\da-f]{2}/gi).map(function (h) {
+            return Uint8Array.from(hex_str.match(/[\da-f]{2}/gi).map((h) => {
                 return parseInt(h, 16);
             }));
         }

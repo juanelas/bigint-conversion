@@ -12,20 +12,20 @@ const inputs = [
     },
     {
         bi: BigInt(31),
-        hex: '1f'
+        hex: '1F'
     },
     {
         bi: BigInt('12485413541784539569456874935679853424678352483761'),
-        hex: '88af94e6b1e99f8bf3b01edb619caaa656a5c75b1'
-    }
+        hex: '88af94e6b1e99f8bf3b01edb619caaa656A5c75b1'
+    },
 ];
 
-describe('bigintToHex', function () {
+describe('hexToBigint', function () {
     for (const input of inputs) {
-        describe(`bigintToHex(${input.bi})`, function () {
-            it(`should return ${input.hex}`, function () {
-                const ret = bigintConversion.bigintToHex(input.bi);
-                chai.expect(ret).to.equal(input.hex);
+        describe(`hexToBigint(${input.hex})`, function () {
+            it(`should return ${input.bi}`, function () {
+                const ret = bigintConversion.hexToBigint(input.hex);
+                chai.expect(ret).to.equal(input.bi);
             });
         });
     }
