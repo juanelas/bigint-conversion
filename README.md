@@ -5,7 +5,7 @@ Convert to/from [ES-2020 native JS implementation of BigInt](https://tc39.es/ecm
 - hex `string`,
 - utf8-encoded text `string`.
 
-It provides a common interface for the conversions that works for both **node.js** and **javascript native**.
+It provides a common interface for the conversions that works for both **node.js** and **native javascript**.
 
 > Note that there is not a directly visible `TypedArray()` constructor, but a set of typed array ones: `Int8Array()`, `Uint8Array()`, `Uint8ClampedArray()`, `Int16Array()`, `Uint16Array()`, `Int32Array()`, `Uint32Array()`, `Float32Array()`, `Float64Array()`, `BigInt64Array()`, `BigUint64Array()`.
 
