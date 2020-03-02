@@ -102,7 +102,7 @@ function bufToHex(buf) {
 /**
  * Converts a hexadecimal string to a buffer
  * 
- * @param {string} hex_str A string with representing a number with hexadecimal notation
+ * @param {string} hex_str A string representing a number with hexadecimal notation
  * 
  * @returns {Buffer|ArrayBuffer} A Buffer (node) or ArrayBuffer (native js) 
  */
