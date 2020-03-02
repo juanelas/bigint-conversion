@@ -13,7 +13,7 @@ function bigintToBuf(a) {
  * 
  * @param {Buffer|ArrayBuffer|TypedArray} buf
  * 
- * @returns {bigint}
+ * @returns {bigint} A BigInt
  */
 function bufToBigint(buf) {
     return BigInt('0x' + bufToHex(buf));
@@ -33,7 +33,7 @@ function bigintToHex(a) {
  * 
  * @param {string} hex_str
  * 
- * @returns {bigint} a
+ * @returns {bigint} A BigInt 
  */
 function hexToBigint(hex_str) {
     return BigInt('0x' + hex_str);

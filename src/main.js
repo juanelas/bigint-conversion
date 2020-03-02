@@ -16,7 +16,7 @@ export function bigintToBuf(a) {
  * 
  * @param {Buffer|ArrayBuffer|TypedArray} buf
  * 
- * @returns {bigint}
+ * @returns {bigint} A BigInt
  */
 export function bufToBigint(buf) {
     return BigInt('0x' + bufToHex(buf));
@@ -38,7 +38,7 @@ export function bigintToHex(a) {
  * 
  * @param {string} hex_str
  * 
- * @returns {bigint} a
+ * @returns {bigint} A BigInt 
  */
 export function hexToBigint(hex_str) {
     return BigInt('0x' + hex_str);

@@ -80,6 +80,7 @@ Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)
 Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
 
 **Kind**: global function  
+**Returns**: <code>bigint</code> - A BigInt  
 
 | Param | Type |
 | --- | --- |
@@ -103,7 +104,7 @@ Convert a bigint to a hexadecimal string
 Converts a hexadecimal string to a bigint
 
 **Kind**: global function  
-**Returns**: <code>bigint</code> - a  
+**Returns**: <code>bigint</code> - A BigInt  
 
 | Param | Type |
 | --- | --- |
