@@ -1,13 +1,16 @@
 # Project specific files
 dist/bigint-conversion-?.?.?.*
 
+# Build scripts
+build/*
+
+# Source files
+src/*
+
 # Logs
 logs
 *.log
 npm-debug.log*
-
-# Dependency directories
-node_modules/
 
 # Output of 'npm pack'
 *.tgz
