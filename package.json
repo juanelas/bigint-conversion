@@ -1,6 +1,6 @@
 {
   "name": "bigint-conversion",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Convert from bigint to buffer (or uint8array), hex string, utf8 string and backwards. For both node.js and javascript native.",
   "keywords": [
     "BigInt",
