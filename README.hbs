@@ -1,11 +1,13 @@
 # bigint-conversion
 Convert to/from native JS implementation of bigint ([ES-2020](https://tc39.es/ecma262/#sec-bigint-objects)) from/to:
 
-- buffer (node.js) or uint8array (native js),
+- `Buffer` (node.js) or `ArrayBuffer|TypedArray` (native js),
 - hex string,
-- utf8 text string.
+- utf8-encoded text string.
 
 It provides a common interface for the conversions that works for both node.js and javascript native.
+
+> Note that there is not a directly visible `TypedArray` constructor, but a set of typed array ones: `Int8Array()`, `Uint8Array()`, `Uint8ClampedArray()`, `Int16Array()`, `Uint16Array()`, `Int32Array()`, `Uint32Array()`, `Float32Array()`, `Float64Array()`, `BigInt64Array()`, `BigUint64Array()`.
 
 ## Installation
 
