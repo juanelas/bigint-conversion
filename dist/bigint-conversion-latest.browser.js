@@ -2,19 +2,19 @@ var bigintConversion = (function (exports) {
     'use strict';
 
     /**
-     * Convert a bigint to a buffer (node.js) or uint8array (native js)
+     * Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)
      * 
      * @param {bigint} a
      * 
-     * @returns {Buffer|Uint8Array} A buffer (node.js) or uint8array (native js) with a binary representation of the input bigint
+     * @returns {Buffer|ArrayBuffer} A buffer (node.js) or ArrayBuffer (native js) with a binary representation of the input bigint
      */
     function bigintToBuf(a) {
         return hexToBuf(bigintToHex(a));
     }
     /**
-     * Converts a buffer (node.js) or uint8array (native js) to a bigint
+     * Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
      * 
-     * @param {Buffer|Uint8Array} buf buffer (node.js) or uint8array (native js)
+     * @param {Buffer|ArrayBuffer|TypedArray} buf
      * 
      * @returns {bigint}
      */
@@ -52,7 +52,7 @@ var bigintConversion = (function (exports) {
         return bufToText(hexToBuf(a.toString(16)));
     }
     /**
-     * Converts a utf-8 string to a bigint (from its buffer|uint8array binary representaion) 
+     * Converts a utf-8 string to a bigint (from its binary representaion) 
      * 
      * @param {string} text A string text with utf-8 encoding 
      * 
@@ -62,33 +62,33 @@ var bigintConversion = (function (exports) {
         return hexToBigint(bufToHex(textToBuf(text)));
     }
     /**
-     * Converts a buffer (node) or a uint8array (native js) containing utf-8 encoded text to a string of utf-8 text
+     * Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text
      * 
-     * @param {Buffer|Uint8Array} buf A buffer containing utf-8 encoded text
+     * @param {Buffer|ArrayBuffer|TypedArray} buf A buffer containing utf-8 encoded text
      * 
      * @returns {string} A string text with utf-8 encoding 
      */
     function bufToText(buf) {
         {
-            return new TextDecoder().decode(buf);
+            return new TextDecoder().decode(new Uint8Array(buf));
         }
     }
     /**
-     * Converts a string of utf-8 encoded text to a buffer (node) or uint8array (native js)
+     * Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)
      * 
      * @param {string} str A string of text (with utf-8 encoding)
      * 
-     * @returns {Buffer|Uint8Array} A buffer containing the utf-8 encoded text
+     * @returns {Buffer|ArrayBuffer} A buffer containing the utf-8 encoded text
      */
     function textToBuf(str) {
         {
-            return new TextEncoder().encode(str);
+            return new TextEncoder().encode(str).buffer;
         }
     }
     /**
-     * Returns the hexadecimal representation of a buffer (node) or uint8array (native js)
+     * Returns the hexadecimal representation of a buffer.
      * 
-     * @param {Buffer|Uint8Array} buf
+     * @param {Buffer|ArrayBuffer|TypedArray} buf
      * 
      * @returns {string} A string with a hexadecimal representation of the input buffer
      */
@@ -96,24 +96,24 @@ var bigintConversion = (function (exports) {
         {
             let s = '';
             const h = '0123456789abcdef';
-            buf.forEach((v) => {
+            (new Uint8Array(buf)).forEach((v) => {
                 s += h[v >> 4] + h[v & 15];
             });
             return s;
         }
     }
     /**
-     * Converts a hexadecimal string to a buffer (node) or uint8array (native js)
+     * Converts a hexadecimal string to a buffer
      * 
      * @param {string} hex_str A string with representing a number with hexadecimal notation
      * 
-     * @returns {Buffer|Uint8Array} A buffer (node) or uint8array (native js) 
+     * @returns {Buffer|ArrayBuffer} A Buffer (node) or ArrayBuffer (native js) 
      */
     function hexToBuf(hex_str) {
         {
-            return Uint8Array.from(hex_str.match(/[\da-f]{2}/gi).map((h) => {
+            return Uint8Array.from(hex_str.trimLeft('0x').match(/[\da-f]{2}/gi).map((h) => {
                 return parseInt(h, 16);
-            }));
+            })).buffer;
         }
     }
 

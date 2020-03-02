@@ -3,19 +3,19 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 /**
- * Convert a bigint to a buffer (node.js) or uint8array (native js)
+ * Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)
  * 
  * @param {bigint} a
  * 
- * @returns {Buffer|Uint8Array} A buffer (node.js) or uint8array (native js) with a binary representation of the input bigint
+ * @returns {Buffer|ArrayBuffer} A buffer (node.js) or ArrayBuffer (native js) with a binary representation of the input bigint
  */
 function bigintToBuf(a) {
     return hexToBuf(bigintToHex(a));
 }
 /**
- * Converts a buffer (node.js) or uint8array (native js) to a bigint
+ * Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
  * 
- * @param {Buffer|Uint8Array} buf buffer (node.js) or uint8array (native js)
+ * @param {Buffer|ArrayBuffer|TypedArray} buf
  * 
  * @returns {bigint}
  */
@@ -53,7 +53,7 @@ function bigintToText(a) {
     return bufToText(hexToBuf(a.toString(16)));
 }
 /**
- * Converts a utf-8 string to a bigint (from its buffer|uint8array binary representaion) 
+ * Converts a utf-8 string to a bigint (from its binary representaion) 
  * 
  * @param {string} text A string text with utf-8 encoding 
  * 
@@ -63,9 +63,9 @@ function textToBigint(text) {
     return hexToBigint(bufToHex(textToBuf(text)));
 }
 /**
- * Converts a buffer (node) or a uint8array (native js) containing utf-8 encoded text to a string of utf-8 text
+ * Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text
  * 
- * @param {Buffer|Uint8Array} buf A buffer containing utf-8 encoded text
+ * @param {Buffer|ArrayBuffer|TypedArray} buf A buffer containing utf-8 encoded text
  * 
  * @returns {string} A string text with utf-8 encoding 
  */
@@ -75,11 +75,11 @@ function bufToText(buf) {
     }
 }
 /**
- * Converts a string of utf-8 encoded text to a buffer (node) or uint8array (native js)
+ * Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)
  * 
  * @param {string} str A string of text (with utf-8 encoding)
  * 
- * @returns {Buffer|Uint8Array} A buffer containing the utf-8 encoded text
+ * @returns {Buffer|ArrayBuffer} A buffer containing the utf-8 encoded text
  */
 function textToBuf(str) {
     {
@@ -87,9 +87,9 @@ function textToBuf(str) {
     }
 }
 /**
- * Returns the hexadecimal representation of a buffer (node) or uint8array (native js)
+ * Returns the hexadecimal representation of a buffer.
  * 
- * @param {Buffer|Uint8Array} buf
+ * @param {Buffer|ArrayBuffer|TypedArray} buf
  * 
  * @returns {string} A string with a hexadecimal representation of the input buffer
  */
@@ -99,11 +99,11 @@ function bufToHex(buf) {
     }
 }
 /**
- * Converts a hexadecimal string to a buffer (node) or uint8array (native js)
+ * Converts a hexadecimal string to a buffer
  * 
  * @param {string} hex_str A string with representing a number with hexadecimal notation
  * 
- * @returns {Buffer|Uint8Array} A buffer (node) or uint8array (native js) 
+ * @returns {Buffer|ArrayBuffer} A Buffer (node) or ArrayBuffer (native js) 
  */
 function hexToBuf(hex_str) {
     {

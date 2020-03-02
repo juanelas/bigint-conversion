@@ -28,11 +28,11 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 ## Functions
 
 <dl>
-<dt><a href="#bigintToBuf">bigintToBuf(a)</a> ⇒ <code>Buffer</code> | <code>Uint8Array</code></dt>
-<dd><p>Convert a bigint to a buffer (node.js) or uint8array (native js)</p>
+<dt><a href="#bigintToBuf">bigintToBuf(a)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
+<dd><p>Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)</p>
 </dd>
 <dt><a href="#bufToBigint">bufToBigint(buf)</a> ⇒ <code>bigint</code></dt>
-<dd><p>Converts a buffer (node.js) or uint8array (native js) to a bigint</p>
+<dd><p>Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint</p>
 </dd>
 <dt><a href="#bigintToHex">bigintToHex(a)</a> ⇒ <code>str</code></dt>
 <dd><p>Convert a bigint to a hexadecimal string</p>
@@ -44,29 +44,29 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 <dd><p>Converts a bigint representing a binary array of utf-8 encoded text to a string of utf-8 text</p>
 </dd>
 <dt><a href="#textToBigint">textToBigint(text)</a> ⇒ <code>bigint</code></dt>
-<dd><p>Converts a utf-8 string to a bigint (from its buffer|uint8array binary representaion)</p>
+<dd><p>Converts a utf-8 string to a bigint (from its binary representaion)</p>
 </dd>
 <dt><a href="#bufToText">bufToText(buf)</a> ⇒ <code>string</code></dt>
-<dd><p>Converts a buffer (node) or a uint8array (native js) containing utf-8 encoded text to a string of utf-8 text</p>
+<dd><p>Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text</p>
 </dd>
-<dt><a href="#textToBuf">textToBuf(str)</a> ⇒ <code>Buffer</code> | <code>Uint8Array</code></dt>
-<dd><p>Converts a string of utf-8 encoded text to a buffer (node) or uint8array (native js)</p>
+<dt><a href="#textToBuf">textToBuf(str)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
+<dd><p>Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)</p>
 </dd>
 <dt><a href="#bufToHex">bufToHex(buf)</a> ⇒ <code>string</code></dt>
-<dd><p>Returns the hexadecimal representation of a buffer (node) or uint8array (native js)</p>
+<dd><p>Returns the hexadecimal representation of a buffer.</p>
 </dd>
-<dt><a href="#hexToBuf">hexToBuf(hex_str)</a> ⇒ <code>Buffer</code> | <code>Uint8Array</code></dt>
-<dd><p>Converts a hexadecimal string to a buffer (node) or uint8array (native js)</p>
+<dt><a href="#hexToBuf">hexToBuf(hex_str)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
+<dd><p>Converts a hexadecimal string to a buffer</p>
 </dd>
 </dl>
 
 <a name="bigintToBuf"></a>
 
-## bigintToBuf(a) ⇒ <code>Buffer</code> \| <code>Uint8Array</code>
-Convert a bigint to a buffer (node.js) or uint8array (native js)
+## bigintToBuf(a) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)
 
 **Kind**: global function  
-**Returns**: <code>Buffer</code> \| <code>Uint8Array</code> - A buffer (node.js) or uint8array (native js) with a binary representation of the input bigint  
+**Returns**: <code>Buffer</code> \| <code>ArrayBuffer</code> - A buffer (node.js) or ArrayBuffer (native js) with a binary representation of the input bigint  
 
 | Param | Type |
 | --- | --- |
@@ -75,13 +75,13 @@ Convert a bigint to a buffer (node.js) or uint8array (native js)
 <a name="bufToBigint"></a>
 
 ## bufToBigint(buf) ⇒ <code>bigint</code>
-Converts a buffer (node.js) or uint8array (native js) to a bigint
+Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
 
 **Kind**: global function  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| buf | <code>Buffer</code> \| <code>Uint8Array</code> | buffer (node.js) or uint8array (native js) |
+| Param | Type |
+| --- | --- |
+| buf | <code>Buffer</code> \| <code>ArrayBuffer</code> \| <code>TypedArray</code> | 
 
 <a name="bigintToHex"></a>
 
@@ -122,7 +122,7 @@ Converts a bigint representing a binary array of utf-8 encoded text to a string 
 <a name="textToBigint"></a>
 
 ## textToBigint(text) ⇒ <code>bigint</code>
-Converts a utf-8 string to a bigint (from its buffer|uint8array binary representaion)
+Converts a utf-8 string to a bigint (from its binary representaion)
 
 **Kind**: global function  
 **Returns**: <code>bigint</code> - A bigint representing a binary array of the input utf-8 encoded text  
@@ -134,22 +134,22 @@ Converts a utf-8 string to a bigint (from its buffer|uint8array binary represent
 <a name="bufToText"></a>
 
 ## bufToText(buf) ⇒ <code>string</code>
-Converts a buffer (node) or a uint8array (native js) containing utf-8 encoded text to a string of utf-8 text
+Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text
 
 **Kind**: global function  
 **Returns**: <code>string</code> - A string text with utf-8 encoding  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| buf | <code>Buffer</code> \| <code>Uint8Array</code> | A buffer containing utf-8 encoded text |
+| buf | <code>Buffer</code> \| <code>ArrayBuffer</code> \| <code>TypedArray</code> | A buffer containing utf-8 encoded text |
 
 <a name="textToBuf"></a>
 
-## textToBuf(str) ⇒ <code>Buffer</code> \| <code>Uint8Array</code>
-Converts a string of utf-8 encoded text to a buffer (node) or uint8array (native js)
+## textToBuf(str) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)
 
 **Kind**: global function  
-**Returns**: <code>Buffer</code> \| <code>Uint8Array</code> - A buffer containing the utf-8 encoded text  
+**Returns**: <code>Buffer</code> \| <code>ArrayBuffer</code> - A buffer containing the utf-8 encoded text  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -158,22 +158,22 @@ Converts a string of utf-8 encoded text to a buffer (node) or uint8array (native
 <a name="bufToHex"></a>
 
 ## bufToHex(buf) ⇒ <code>string</code>
-Returns the hexadecimal representation of a buffer (node) or uint8array (native js)
+Returns the hexadecimal representation of a buffer.
 
 **Kind**: global function  
 **Returns**: <code>string</code> - A string with a hexadecimal representation of the input buffer  
 
 | Param | Type |
 | --- | --- |
-| buf | <code>Buffer</code> \| <code>Uint8Array</code> | 
+| buf | <code>Buffer</code> \| <code>ArrayBuffer</code> \| <code>TypedArray</code> | 
 
 <a name="hexToBuf"></a>
 
-## hexToBuf(hex_str) ⇒ <code>Buffer</code> \| <code>Uint8Array</code>
-Converts a hexadecimal string to a buffer (node) or uint8array (native js)
+## hexToBuf(hex_str) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+Converts a hexadecimal string to a buffer
 
 **Kind**: global function  
-**Returns**: <code>Buffer</code> \| <code>Uint8Array</code> - A buffer (node) or uint8array (native js)  
+**Returns**: <code>Buffer</code> \| <code>ArrayBuffer</code> - A Buffer (node) or ArrayBuffer (native js)  
 
 | Param | Type | Description |
 | --- | --- | --- |
