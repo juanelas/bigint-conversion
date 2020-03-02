@@ -7,6 +7,10 @@ build/*
 # Source files
 src/*
 
+# Test files
+test/*
+
+
 # Logs
 logs
 *.log
