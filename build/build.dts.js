@@ -1,5 +1,5 @@
 const fs = require('fs');
-const ts = require("typescript");
+const ts = require('typescript');
 const path = require('path');
 const pkgJson = require('../package.json');
 
@@ -9,30 +9,18 @@ const dtsFile = path.join(rootDir, 'types', `${pkgJson.name}.d.ts`);
 
 
 const compilerOptions = {
-    "declaration": true,
-    "noEmit": false,
-    "emitDeclarationOnly": true,
-    "allowJs": true
+    'declaration': true,
+    'noEmit': false,
+    'emitDeclarationOnly': true,
+    'allowJs': true
 };
 
-function compile(jsFile, dtsFile, options) {
-    // Create a Program with an in-memory emit
-    const createdFiles = {};
-    const host = ts.createCompilerHost(options);
-    // host.writeFile = (fileName, contents) => createdFiles[fileName] = contents;
-    host.writeFile = (fileName, contents) => {
-        fs.writeFileSync(dtsFile, contents);
-    }
+const host = ts.createCompilerHost(compilerOptions);
 
-    // Prepare and emit the d.ts files
-    const program = ts.createProgram([jsFile], options, host);
-    program.emit();
+host.writeFile = (fileName, contents) => {
+    fs.writeFileSync(dtsFile, contents);
+};
 
-    // Loop through all the input files
-    // fileNames.forEach(file => {
-    //     console.log("### JavaScript\n");
-    //     console.log(host.readFile(file));
-    // });
-}
-
-compile(jsFile, dtsFile, compilerOptions);
+// Prepare and emit the d.ts files
+const program = ts.createProgram([jsFile], compilerOptions, host);
+program.emit();

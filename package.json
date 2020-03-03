@@ -20,7 +20,7 @@
   },
   "repository": "github:juanelas/bigint-conversion",
   "main": "./dist/bigint-conversion-latest.node.js",
-  "browser": "./dist/bigint-conversion-latest.browser.mod.js",
+  "browser": "./dist/bigint-conversion-latest.browser.mod.min.js",
   "types": "./types/bigint-conversion.d.ts",
   "directories": {
     "build": "./build",
