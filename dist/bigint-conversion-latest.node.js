@@ -71,7 +71,7 @@ function textToBigint(text) {
  */
 function bufToText(buf) {
     {
-        return buf.toString();
+        return Buffer.from(buf).toString();
     }
 }
 /**
@@ -95,7 +95,7 @@ function textToBuf(str) {
  */
 function bufToHex(buf) {
     {
-        return buf.toString('hex');
+        return Buffer.from(buf).toString('hex');
     }
 }
 /**

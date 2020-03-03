@@ -77,7 +77,7 @@ export function bufToText(buf) {
     if (process.browser) {
         return new TextDecoder().decode(new Uint8Array(buf));
     } else {
-        return buf.toString();
+        return Buffer.from(buf).toString();
     }
 };
 
@@ -112,7 +112,7 @@ export function bufToHex(buf) {
         });
         return s;
     } else {
-        return buf.toString('hex');
+        return Buffer.from(buf).toString('hex');
     }
 };
 
