@@ -1,5 +1,5 @@
 /**
- * Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)
+ * Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
  * 
  * @param {bigint} a
  * 
@@ -19,7 +19,7 @@ function bufToBigint(buf) {
     return BigInt('0x' + bufToHex(buf));
 }
 /**
- * Convert a bigint to a hexadecimal string
+ * Converts a bigint to a hexadecimal string
  * 
  * @param {bigint} a
  * 

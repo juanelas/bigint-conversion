@@ -1,5 +1,5 @@
 /**
- * Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)
+ * Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
  *
  * @param {bigint} a
  *
@@ -15,7 +15,7 @@ export function bigintToBuf(a: bigint): ArrayBuffer | Buffer;
  */
 export function bufToBigint(buf: any): bigint;
 /**
- * Convert a bigint to a hexadecimal string
+ * Converts a bigint to a hexadecimal string
  *
  * @param {bigint} a
  *

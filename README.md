@@ -31,13 +31,13 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 
 <dl>
 <dt><a href="#bigintToBuf">bigintToBuf(a)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
-<dd><p>Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)</p>
+<dd><p>Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)</p>
 </dd>
 <dt><a href="#bufToBigint">bufToBigint(buf)</a> ⇒ <code>bigint</code></dt>
 <dd><p>Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint</p>
 </dd>
 <dt><a href="#bigintToHex">bigintToHex(a)</a> ⇒ <code>str</code></dt>
-<dd><p>Convert a bigint to a hexadecimal string</p>
+<dd><p>Converts a bigint to a hexadecimal string</p>
 </dd>
 <dt><a href="#hexToBigint">hexToBigint(hex_str)</a> ⇒ <code>bigint</code></dt>
 <dd><p>Converts a hexadecimal string to a bigint</p>
@@ -65,7 +65,7 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 <a name="bigintToBuf"></a>
 
 ## bigintToBuf(a) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
-Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)
+Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
 
 **Kind**: global function  
 **Returns**: <code>Buffer</code> \| <code>ArrayBuffer</code> - A buffer (node.js) or ArrayBuffer (native js) with a binary representation of the input bigint  
@@ -89,7 +89,7 @@ Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
 <a name="bigintToHex"></a>
 
 ## bigintToHex(a) ⇒ <code>str</code>
-Convert a bigint to a hexadecimal string
+Converts a bigint to a hexadecimal string
 
 **Kind**: global function  
 **Returns**: <code>str</code> - A hexadecimal representation of the input bigint  

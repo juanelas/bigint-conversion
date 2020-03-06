@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Convert a bigint to a buffer (node.js) or ArrayBuffer (native js)
+ * Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
  * 
  * @param {bigint} a
  * 
@@ -23,7 +23,7 @@ export function bufToBigint(buf) {
 };
 
 /**
- * Convert a bigint to a hexadecimal string
+ * Converts a bigint to a hexadecimal string
  * 
  * @param {bigint} a
  * 
