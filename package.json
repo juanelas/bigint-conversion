@@ -30,13 +30,31 @@
     "types": "/types"
   },
   "scripts": {
-    "test": "mocha --timeout 600000",
+    "test": "mocha",
     "build:js": "node build/build.rollup.js",
+    "build:standard": "standard --fix",
     "build:browserTests": "node build/build.browser.tests.js",
     "build:docs": "jsdoc2md --template=./src/readme-template.hbs --files ./src/main.js > README.md",
     "build:dts": "node build/build.dts.js",
     "build": "run-s build:**",
     "prepublishOnly": "npm run build"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ],
+    "globals": [
+      "BigInt",
+      "Blob",
+      "postMessage",
+      "self",
+      "Worker"
+    ],
+    "ignore": [
+      "/test/browser/",
+      "*.browser.js",
+      "*.mod.min.js"
+    ]
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^2.3.1",
@@ -50,9 +68,10 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-multi-entry": ">=2.1.0",
     "rollup-plugin-node-resolve": ">=5.2.0",
+    "standard": "^14.3.3",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@types/node": "^13.9.3"
+    "@types/node": ">=10"
   }
 }

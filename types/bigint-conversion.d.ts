@@ -25,11 +25,11 @@ export function bigintToHex(a: bigint): any;
 /**
  * Converts a hexadecimal string to a bigint
  *
- * @param {string} hex_str
+ * @param {string} hexStr
  *
  * @returns {bigint} A BigInt
  */
-export function hexToBigint(hex_str: string): bigint;
+export function hexToBigint(hexStr: string): bigint;
 /**
  * Converts a bigint representing a binary array of utf-8 encoded text to a string of utf-8 text
  *
@@ -73,8 +73,8 @@ export function bufToHex(buf: any): string;
 /**
  * Converts a hexadecimal string to a buffer
  *
- * @param {string} hex_str A string representing a number with hexadecimal notation
+ * @param {string} hexStr A string representing a number with hexadecimal notation
  *
  * @returns {Buffer|ArrayBuffer} A Buffer (node) or ArrayBuffer (native js)
  */
-export function hexToBuf(hex_str: string): ArrayBuffer | Buffer;
+export function hexToBuf(hexStr: string): ArrayBuffer | Buffer;

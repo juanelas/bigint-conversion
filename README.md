@@ -39,7 +39,7 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 <dt><a href="#bigintToHex">bigintToHex(a)</a> ⇒ <code>str</code></dt>
 <dd><p>Converts a bigint to a hexadecimal string</p>
 </dd>
-<dt><a href="#hexToBigint">hexToBigint(hex_str)</a> ⇒ <code>bigint</code></dt>
+<dt><a href="#hexToBigint">hexToBigint(hexStr)</a> ⇒ <code>bigint</code></dt>
 <dd><p>Converts a hexadecimal string to a bigint</p>
 </dd>
 <dt><a href="#bigintToText">bigintToText(a)</a> ⇒ <code>string</code></dt>
@@ -57,7 +57,7 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 <dt><a href="#bufToHex">bufToHex(buf)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the hexadecimal representation of a buffer.</p>
 </dd>
-<dt><a href="#hexToBuf">hexToBuf(hex_str)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
+<dt><a href="#hexToBuf">hexToBuf(hexStr)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
 <dd><p>Converts a hexadecimal string to a buffer</p>
 </dd>
 </dl>
@@ -100,7 +100,7 @@ Converts a bigint to a hexadecimal string
 
 <a name="hexToBigint"></a>
 
-## hexToBigint(hex_str) ⇒ <code>bigint</code>
+## hexToBigint(hexStr) ⇒ <code>bigint</code>
 Converts a hexadecimal string to a bigint
 
 **Kind**: global function  
@@ -108,7 +108,7 @@ Converts a hexadecimal string to a bigint
 
 | Param | Type |
 | --- | --- |
-| hex_str | <code>string</code> | 
+| hexStr | <code>string</code> | 
 
 <a name="bigintToText"></a>
 
@@ -172,7 +172,7 @@ Returns the hexadecimal representation of a buffer.
 
 <a name="hexToBuf"></a>
 
-## hexToBuf(hex_str) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+## hexToBuf(hexStr) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
 Converts a hexadecimal string to a buffer
 
 **Kind**: global function  
@@ -180,7 +180,7 @@ Converts a hexadecimal string to a buffer
 
 | Param | Type | Description |
 | --- | --- | --- |
-| hex_str | <code>string</code> | A string representing a number with hexadecimal notation |
+| hexStr | <code>string</code> | A string representing a number with hexadecimal notation |
 
 
 * * *
