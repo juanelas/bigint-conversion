@@ -1,7 +1,8 @@
-// For the browser test builder to work you MUST import the module in a variable that
-// is the camelised version of the package name.
+// Every test file (you can create as many as you want) should start like this
+// Please, do NOT touch. They will be automatically removed for browser tests -->
 
 
+// <--
 
 const inputs = [
   {
@@ -22,17 +23,18 @@ describe('bigintToHex', function () {
   for (const input of inputs) {
     describe(`bigintToHex(${input.bi})`, function () {
       it(`should return ${input.hex}`, function () {
-        const ret = bigintConversion.bigintToHex(input.bi);
+        const ret = _pkg.bigintToHex(input.bi);
         chai.expect(ret).to.equal(input.hex);
       });
     });
   }
 });
 
-// For the browser test builder to work you MUST import the module in a variable that
-// is the camelised version of the package name.
+// Every test file (you can create as many as you want) should start like this
+// Please, do NOT touch. They will be automatically removed for browser tests -->
 
 
+// <--
 
 const inputs$1 = [
   'Hello World',
@@ -48,17 +50,18 @@ describe('bigintToText((textToBigint(str))) === str ', function () {
   for (const input of inputs$1) {
     describe(`bigintToText((textToBigint(${input})))`, function () {
       it(`should return ${input}`, function () {
-        const ret = bigintConversion.bigintToText(bigintConversion.textToBigint(input));
+        const ret = _pkg.bigintToText(_pkg.textToBigint(input));
         chai.expect(ret).to.equal(input);
       });
     });
   }
 });
 
-// For the browser test builder to work you MUST import the module in a variable that
-// is the camelised version of the package name.
+// Every test file (you can create as many as you want) should start like this
+// Please, do NOT touch. They will be automatically removed for browser tests -->
 
 
+// <--
 
 const inputs$2 = [
   {
@@ -79,7 +82,7 @@ describe('hexToBigint', function () {
   for (const input of inputs$2) {
     describe(`hexToBigint(${input.hex})`, function () {
       it(`should return ${input.bi}`, function () {
-        const ret = bigintConversion.hexToBigint(input.hex);
+        const ret = _pkg.hexToBigint(input.hex);
         chai.expect(ret).to.equal(input.bi);
       });
     });

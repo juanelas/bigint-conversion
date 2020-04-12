@@ -1,3 +1,5 @@
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 # bigint-conversion
 Convert to/from [ES-2020 native JS implementation of BigInt](https://tc39.es/ecma262/#sec-bigint-objects) from/to:
 
@@ -21,13 +23,13 @@ npm install bigint-conversion
 
 NPM installation defaults to the ES6 module for browsers and the CJS one for Node.js.
 
-For web browsers, you can also directly download the [IIFE file](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/dist/bigint-conversion-latest.browser.js) or the [ES6 module](https://raw.githubusercontent.com/juanelas/bigint-conversionmaster/dist/bigint-conversion-latest.browser.mod.min.js) from GitHub.
+For web browsers, you can also directly download the [IIFE file](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/dist/index.browser.bundle.iife.js) or the [ES6 module](https://raw.githubusercontent.com/juanelas/bigint-conversionmaster/dist/index.browser.bundle.mod.js) from GitHub.
 
 > BigInt is [ES-2020](https://tc39.es/ecma262/#sec-bigint-objects). In order to use it with TypeScript you should set `lib` (and probably also `target` and `module`) to `esnext` in `tsconfig.json`.
 
 # bigint-conversion JS Doc
 
-## Functions
+### Functions
 
 <dl>
 <dt><a href="#bigintToBuf">bigintToBuf(a)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
@@ -64,7 +66,7 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 
 <a name="bigintToBuf"></a>
 
-## bigintToBuf(a) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+### bigintToBuf(a) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
 Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
 
 **Kind**: global function  
@@ -76,7 +78,7 @@ Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
 
 <a name="bufToBigint"></a>
 
-## bufToBigint(buf) ⇒ <code>bigint</code>
+### bufToBigint(buf) ⇒ <code>bigint</code>
 Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
 
 **Kind**: global function  
@@ -88,7 +90,7 @@ Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
 
 <a name="bigintToHex"></a>
 
-## bigintToHex(a) ⇒ <code>str</code>
+### bigintToHex(a) ⇒ <code>str</code>
 Converts a bigint to a hexadecimal string
 
 **Kind**: global function  
@@ -100,7 +102,7 @@ Converts a bigint to a hexadecimal string
 
 <a name="hexToBigint"></a>
 
-## hexToBigint(hexStr) ⇒ <code>bigint</code>
+### hexToBigint(hexStr) ⇒ <code>bigint</code>
 Converts a hexadecimal string to a bigint
 
 **Kind**: global function  
@@ -112,7 +114,7 @@ Converts a hexadecimal string to a bigint
 
 <a name="bigintToText"></a>
 
-## bigintToText(a) ⇒ <code>string</code>
+### bigintToText(a) ⇒ <code>string</code>
 Converts a bigint representing a binary array of utf-8 encoded text to a string of utf-8 text
 
 **Kind**: global function  
@@ -124,7 +126,7 @@ Converts a bigint representing a binary array of utf-8 encoded text to a string 
 
 <a name="textToBigint"></a>
 
-## textToBigint(text) ⇒ <code>bigint</code>
+### textToBigint(text) ⇒ <code>bigint</code>
 Converts a utf-8 string to a bigint (from its binary representaion)
 
 **Kind**: global function  
@@ -136,7 +138,7 @@ Converts a utf-8 string to a bigint (from its binary representaion)
 
 <a name="bufToText"></a>
 
-## bufToText(buf) ⇒ <code>string</code>
+### bufToText(buf) ⇒ <code>string</code>
 Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text
 
 **Kind**: global function  
@@ -148,7 +150,7 @@ Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded t
 
 <a name="textToBuf"></a>
 
-## textToBuf(str) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+### textToBuf(str) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
 Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)
 
 **Kind**: global function  
@@ -160,7 +162,7 @@ Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (nativ
 
 <a name="bufToHex"></a>
 
-## bufToHex(buf) ⇒ <code>string</code>
+### bufToHex(buf) ⇒ <code>string</code>
 Returns the hexadecimal representation of a buffer.
 
 **Kind**: global function  
@@ -172,7 +174,7 @@ Returns the hexadecimal representation of a buffer.
 
 <a name="hexToBuf"></a>
 
-## hexToBuf(hexStr) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+### hexToBuf(hexStr) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
 Converts a hexadecimal string to a buffer
 
 **Kind**: global function  

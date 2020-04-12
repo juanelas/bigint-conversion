@@ -19,22 +19,22 @@
     "url": "https://github.com/juanelas"
   },
   "repository": "github:juanelas/bigint-conversion",
-  "main": "./dist/bigint-conversion-latest.node.js",
-  "browser": "./dist/bigint-conversion-latest.browser.mod.min.js",
-  "types": "./types/bigint-conversion.d.ts",
+  "main": "./lib/index.node.js",
+  "browser": "./lib/index.browser.mod.js",
+  "types": "./types/index.d.ts",
   "directories": {
     "build": "./build",
-    "dist": "./dist",
+    "lib": "./lib",
     "src": "./src",
     "test": "./test",
     "types": "/types"
   },
   "scripts": {
     "test": "mocha",
-    "build:js": "node build/build.rollup.js",
+    "build:js": "rollup -c build/rollup.config.js",
     "build:standard": "standard --fix",
-    "build:browserTests": "node build/build.browser.tests.js",
-    "build:docs": "jsdoc2md --template=./src/readme-template.hbs --files ./src/main.js > README.md",
+    "build:browserTests": "rollup -c build/rollup.tests.config.js",
+    "build:docs": "node build/build.docs.js",
     "build:dts": "node build/build.dts.js",
     "build": "run-s build:**",
     "prepublishOnly": "npm run build"
@@ -44,34 +44,29 @@
       "mocha"
     ],
     "globals": [
-      "BigInt",
-      "Blob",
-      "postMessage",
-      "self",
-      "Worker"
+      "BigInt"
     ],
     "ignore": [
       "/test/browser/",
-      "*.browser.js",
-      "*.mod.min.js"
+      "/lib/index.browser.bundle.iife.js",
+      "/lib/index.browser.bundle.mod.js"
     ]
-  },
-  "devDependencies": {
-    "@rollup/plugin-replace": "^2.3.1",
-    "chai": ">=4.2.0",
-    "eslint": "^6.8.0",
-    "jsdoc-to-markdown": "^5.0.3",
-    "mocha": "^7.1.1",
-    "npm-run-all": "^4.1.5",
-    "rollup": "^1.32.1",
-    "rollup-plugin-babel-minify": "^9.1.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-multi-entry": ">=2.1.0",
-    "rollup-plugin-node-resolve": ">=5.2.0",
-    "standard": "^14.3.3",
-    "typescript": "^3.8.3"
   },
   "dependencies": {
     "@types/node": ">=10"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-multi-entry": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^7.1.2",
+    "@rollup/plugin-replace": "^2.3.1",
+    "chai": "^4.2.0",
+    "jsdoc-to-markdown": "^5.0.3",
+    "mocha": "^7.1.1",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.6.0",
+    "rollup-plugin-terser": "^5.3.0",
+    "standard": "^14.3.3",
+    "typescript": "^3.8.3"
   }
 }
