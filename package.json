@@ -38,7 +38,7 @@
     "build:docs": "node build/build.docs.js",
     "build:dts": "node build/build.dts.js",
     "build": "run-s build:**",
-    "preversion": "npm run build && git commit -a -m \"ready for versioning\"",
+    "preversion": "npm run build && npm run localtest && git commit -a -m \"ready for versioning\"",
     "postversion": "git push"
   },
   "standard": {
