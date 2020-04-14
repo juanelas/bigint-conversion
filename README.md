@@ -34,15 +34,16 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 
 <a name="bigintToBuf"></a>
 
-### bigintToBuf(a) ⇒ <code>ArrayBuffer</code>
-Converts a bigint to an ArrayBuffer
+### bigintToBuf(a, [boolean]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
+Converts a bigint to an ArrayBuffer or a Buffer (default for Node.js)
 
 **Kind**: global function  
-**Returns**: <code>ArrayBuffer</code> - An ArrayBuffer with a binary representation of the input bigint  
+**Returns**: <code>ArrayBuffer</code> \| <code>Buffer</code> - An ArrayBuffer or a Buffer with a binary representation of the input bigint  
 
-| Param | Type |
-| --- | --- |
-| a | <code>bigint</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| a | <code>bigint</code> |  |  |
+| [boolean] | <code>returnArrayBuffer</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
 
 <a name="bufToBigint"></a>
 
@@ -143,15 +144,16 @@ Returns the hexadecimal representation of a buffer.
 
 <a name="hexToBuf"></a>
 
-### hexToBuf(hexStr) ⇒ <code>ArrayBuffer</code>
+### hexToBuf(hexStr, [boolean]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
 Converts a hexadecimal string to a buffer
 
 **Kind**: global function  
-**Returns**: <code>ArrayBuffer</code> - An ArrayBuffer  
+**Returns**: <code>ArrayBuffer</code> \| <code>Buffer</code> - An ArrayBuffer or a Buffer  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| hexStr | <code>string</code> | A string representing a number with hexadecimal notation |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| hexStr | <code>string</code> |  | A string representing a number with hexadecimal notation |
+| [boolean] | <code>returnArrayBuffer</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
 
 <a name="TypedArray"></a>
 

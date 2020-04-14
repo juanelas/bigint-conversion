@@ -12,10 +12,16 @@ const inputs = [
   BigInt(19)
 ]
 
+let returnArrayBuffer = false
+
 for (const input of inputs) {
   describe(`bufToBigint(bigintToBuf(${input}))`, function () {
     it(`should return ${input}`, function () {
-      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input))
+      /* eslint-disable no-unneeded-ternary */
+      returnArrayBuffer = returnArrayBuffer ? false : true
+      /* eslint-enable no-unneeded-ternary */
+
+      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, returnArrayBuffer))
       chai.expect(ret).to.equal(input)
     })
   })

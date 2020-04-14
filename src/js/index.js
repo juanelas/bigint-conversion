@@ -4,14 +4,15 @@
  */
 
 /**
- * Converts a bigint to an ArrayBuffer
+ * Converts a bigint to an ArrayBuffer or a Buffer (default for Node.js)
  *
  * @param {bigint} a
+ * @param {returnArrayBuffer} [boolean = false] In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default).
  *
- * @returns {ArrayBuffer} An ArrayBuffer with a binary representation of the input bigint
+ * @returns {ArrayBuffer|Buffer} An ArrayBuffer or a Buffer with a binary representation of the input bigint
  */
-export function bigintToBuf (a) {
-  return hexToBuf(bigintToHex(a))
+export function bigintToBuf (a, returnArrayBuffer = false) {
+  return hexToBuf(bigintToHex(a), returnArrayBuffer)
 }
 
 /**
@@ -89,7 +90,7 @@ export function bufToText (buf) {
  *
  * @returns {ArrayBuffer|Buffer} An ArrayBuffer or a Buffer containing the utf-8 encoded text
  */
-export function textToBuf (str, returnArrayBuffer) {
+export function textToBuf (str, returnArrayBuffer = false) {
   if (!process.browser && !returnArrayBuffer) {
     return Buffer.from(new TextEncoder().encode(str).buffer)
   }
@@ -120,10 +121,11 @@ export function bufToHex (buf) {
  * Converts a hexadecimal string to a buffer
  *
  * @param {string} hexStr A string representing a number with hexadecimal notation
+ * @param {returnArrayBuffer} [boolean = false] In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default).
  *
- * @returns {ArrayBuffer} An ArrayBuffer
+ * @returns {ArrayBuffer|Buffer} An ArrayBuffer or a Buffer
  */
-export function hexToBuf (hexStr) {
+export function hexToBuf (hexStr, returnArrayBuffer = false) {
   hexStr = !(hexStr.length % 2) ? hexStr : '0' + hexStr
   /* eslint-disable no-lone-blocks */
   if (process.browser) {
@@ -132,7 +134,8 @@ export function hexToBuf (hexStr) {
     })).buffer
   } else {
     const b = Buffer.from(hexStr, 'hex')
-    return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)
+    if (!returnArrayBuffer) return b
+    else return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)
   }
   /* eslint-enable no-lone-blocks */
 }

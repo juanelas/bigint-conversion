@@ -31,6 +31,7 @@
   },
   "scripts": {
     "test": "nyc --check-coverage mocha && nyc report --reporter=text-lcov | coveralls",
+    "localtest": "nyc --check-coverage mocha",
     "build:js": "rollup -c build/rollup.config.js",
     "build:standard": "standard --fix",
     "build:browserTests": "rollup -c build/rollup.tests.config.js",
