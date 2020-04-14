@@ -19,6 +19,7 @@
     "url": "https://github.com/juanelas"
   },
   "repository": "github:juanelas/bigint-conversion",
+  "engines" : { "node" : ">=10.4" },
   "main": "./lib/index.node.js",
   "browser": "./lib/index.browser.mod.js",
   "types": "./types/index.d.ts",
