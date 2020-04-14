@@ -1,20 +1,25 @@
 'use strict'
 
 /**
- * Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
+ * A TypedArray object describes an array-like view of an underlying binary data buffer.
+ * @typedef {Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array} TypedArray
+ */
+
+/**
+ * Converts a bigint to an ArrayBuffer
  *
  * @param {bigint} a
  *
- * @returns {Buffer|ArrayBuffer} A buffer (node.js) or ArrayBuffer (native js) with a binary representation of the input bigint
+ * @returns {ArrayBuffer} An ArrayBuffer with a binary representation of the input bigint
  */
 export function bigintToBuf (a) {
   return hexToBuf(bigintToHex(a))
 }
 
 /**
- * Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
+ * Converts an ArrayBuffer, TypedArray or Buffer (node.js) to a bigint
  *
- * @param {Buffer|ArrayBuffer|TypedArray} buf
+ * @param {ArrayBuffer|TypedArray|Buffer} buf
  *
  * @returns {bigint} A BigInt
  */
@@ -67,9 +72,9 @@ export function textToBigint (text) {
 }
 
 /**
- * Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text
+ *Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded text to a string of utf-8 text
  *
- * @param {Buffer|ArrayBuffer|TypedArray} buf A buffer containing utf-8 encoded text
+ * @param {ArrayBuffer|TypedArray|Buffer} buf A buffer containing utf-8 encoded text
  *
  * @returns {string} A string text with utf-8 encoding
  */
@@ -83,17 +88,16 @@ export function bufToText (buf) {
  *
  * @param {string} str A string of text (with utf-8 encoding)
  *
- * @returns {Buffer|ArrayBuffer} A buffer containing the utf-8 encoded text
+ * @returns {ArrayBuffer} An ArrayBuffer containing the utf-8 encoded text
  */
 export function textToBuf (str) {
-  if (process.browser) return new TextEncoder().encode(str).buffer
-  else return Buffer.from(str)
+  return new TextEncoder().encode(str).buffer
 }
 
 /**
  * Returns the hexadecimal representation of a buffer.
  *
- * @param {Buffer|ArrayBuffer|TypedArray} buf
+ * @param {ArrayBuffer|TypedArray|Buffer} buf
  *
  * @returns {string} A string with a hexadecimal representation of the input buffer
  */
@@ -106,9 +110,7 @@ export function bufToHex (buf) {
       s += h[v >> 4] + h[v & 15]
     })
     return s
-  } else {
-    return Buffer.from(buf).toString('hex')
-  }
+  } else return Buffer.from(buf).toString('hex')
   /* eslint-enable no-lone-blocks */
 }
 
@@ -117,7 +119,7 @@ export function bufToHex (buf) {
  *
  * @param {string} hexStr A string representing a number with hexadecimal notation
  *
- * @returns {Buffer|ArrayBuffer} A Buffer (node) or ArrayBuffer (native js)
+ * @returns {ArrayBuffer} An ArrayBuffer
  */
 export function hexToBuf (hexStr) {
   /* eslint-disable no-lone-blocks */
@@ -126,7 +128,9 @@ export function hexToBuf (hexStr) {
       return parseInt(h, 16)
     })).buffer
   } else {
-    return Buffer.from(hexStr, 'hex')
+    hexStr = !(hexStr.length % 2) ? hexStr : '0' + hexStr
+    const b = Buffer.from(hexStr, 'hex')
+    return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)
   }
   /* eslint-enable no-lone-blocks */
 }

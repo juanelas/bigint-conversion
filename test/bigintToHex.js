@@ -16,6 +16,10 @@ const inputs = [
     hex: '1f'
   },
   {
+    bi: BigInt(3855),
+    hex: 'f0f'
+  },
+  {
     bi: BigInt('12485413541784539569456874935679853424678352483761'),
     hex: '88af94e6b1e99f8bf3b01edb619caaa656a5c75b1'
   }

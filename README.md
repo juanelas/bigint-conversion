@@ -32,11 +32,11 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 ### Functions
 
 <dl>
-<dt><a href="#bigintToBuf">bigintToBuf(a)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
-<dd><p>Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)</p>
+<dt><a href="#bigintToBuf">bigintToBuf(a)</a> ⇒ <code>ArrayBuffer</code></dt>
+<dd><p>Converts a bigint to an ArrayBuffer</p>
 </dd>
 <dt><a href="#bufToBigint">bufToBigint(buf)</a> ⇒ <code>bigint</code></dt>
-<dd><p>Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint</p>
+<dd><p>Converts an ArrayBuffer, TypedArray or Buffer (node.js) to a bigint</p>
 </dd>
 <dt><a href="#bigintToHex">bigintToHex(a)</a> ⇒ <code>str</code></dt>
 <dd><p>Converts a bigint to a hexadecimal string</p>
@@ -51,26 +51,34 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 <dd><p>Converts a utf-8 string to a bigint (from its binary representaion)</p>
 </dd>
 <dt><a href="#bufToText">bufToText(buf)</a> ⇒ <code>string</code></dt>
-<dd><p>Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text</p>
+<dd><p>Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded text to a string of utf-8 text</p>
 </dd>
-<dt><a href="#textToBuf">textToBuf(str)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
+<dt><a href="#textToBuf">textToBuf(str)</a> ⇒ <code>ArrayBuffer</code></dt>
 <dd><p>Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)</p>
 </dd>
 <dt><a href="#bufToHex">bufToHex(buf)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the hexadecimal representation of a buffer.</p>
 </dd>
-<dt><a href="#hexToBuf">hexToBuf(hexStr)</a> ⇒ <code>Buffer</code> | <code>ArrayBuffer</code></dt>
+<dt><a href="#hexToBuf">hexToBuf(hexStr)</a> ⇒ <code>ArrayBuffer</code></dt>
 <dd><p>Converts a hexadecimal string to a buffer</p>
+</dd>
+</dl>
+
+### Typedefs
+
+<dl>
+<dt><a href="#TypedArray">TypedArray</a> : <code>Int8Array</code> | <code>Uint8Array</code> | <code>Uint8ClampedArray</code> | <code>Int16Array</code> | <code>Uint16Array</code> | <code>Int32Array</code> | <code>Uint32Array</code> | <code>Float32Array</code> | <code>Float64Array</code> | <code>BigInt64Array</code> | <code>BigUint64Array</code></dt>
+<dd><p>A TypedArray object describes an array-like view of an underlying binary data buffer.</p>
 </dd>
 </dl>
 
 <a name="bigintToBuf"></a>
 
-### bigintToBuf(a) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
-Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
+### bigintToBuf(a) ⇒ <code>ArrayBuffer</code>
+Converts a bigint to an ArrayBuffer
 
 **Kind**: global function  
-**Returns**: <code>Buffer</code> \| <code>ArrayBuffer</code> - A buffer (node.js) or ArrayBuffer (native js) with a binary representation of the input bigint  
+**Returns**: <code>ArrayBuffer</code> - An ArrayBuffer with a binary representation of the input bigint  
 
 | Param | Type |
 | --- | --- |
@@ -79,14 +87,14 @@ Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
 <a name="bufToBigint"></a>
 
 ### bufToBigint(buf) ⇒ <code>bigint</code>
-Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
+Converts an ArrayBuffer, TypedArray or Buffer (node.js) to a bigint
 
 **Kind**: global function  
 **Returns**: <code>bigint</code> - A BigInt  
 
 | Param | Type |
 | --- | --- |
-| buf | <code>Buffer</code> \| <code>ArrayBuffer</code> \| <code>TypedArray</code> | 
+| buf | <code>ArrayBuffer</code> \| [<code>TypedArray</code>](#TypedArray) \| <code>Buffer</code> | 
 
 <a name="bigintToHex"></a>
 
@@ -139,22 +147,22 @@ Converts a utf-8 string to a bigint (from its binary representaion)
 <a name="bufToText"></a>
 
 ### bufToText(buf) ⇒ <code>string</code>
-Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text
+Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded text to a string of utf-8 text
 
 **Kind**: global function  
 **Returns**: <code>string</code> - A string text with utf-8 encoding  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| buf | <code>Buffer</code> \| <code>ArrayBuffer</code> \| <code>TypedArray</code> | A buffer containing utf-8 encoded text |
+| buf | <code>ArrayBuffer</code> \| [<code>TypedArray</code>](#TypedArray) \| <code>Buffer</code> | A buffer containing utf-8 encoded text |
 
 <a name="textToBuf"></a>
 
-### textToBuf(str) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+### textToBuf(str) ⇒ <code>ArrayBuffer</code>
 Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)
 
 **Kind**: global function  
-**Returns**: <code>Buffer</code> \| <code>ArrayBuffer</code> - A buffer containing the utf-8 encoded text  
+**Returns**: <code>ArrayBuffer</code> - An ArrayBuffer containing the utf-8 encoded text  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -170,19 +178,25 @@ Returns the hexadecimal representation of a buffer.
 
 | Param | Type |
 | --- | --- |
-| buf | <code>Buffer</code> \| <code>ArrayBuffer</code> \| <code>TypedArray</code> | 
+| buf | <code>ArrayBuffer</code> \| [<code>TypedArray</code>](#TypedArray) \| <code>Buffer</code> | 
 
 <a name="hexToBuf"></a>
 
-### hexToBuf(hexStr) ⇒ <code>Buffer</code> \| <code>ArrayBuffer</code>
+### hexToBuf(hexStr) ⇒ <code>ArrayBuffer</code>
 Converts a hexadecimal string to a buffer
 
 **Kind**: global function  
-**Returns**: <code>Buffer</code> \| <code>ArrayBuffer</code> - A Buffer (node) or ArrayBuffer (native js)  
+**Returns**: <code>ArrayBuffer</code> - An ArrayBuffer  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | hexStr | <code>string</code> | A string representing a number with hexadecimal notation |
 
+<a name="TypedArray"></a>
+
+### TypedArray : <code>Int8Array</code> \| <code>Uint8Array</code> \| <code>Uint8ClampedArray</code> \| <code>Int16Array</code> \| <code>Uint16Array</code> \| <code>Int32Array</code> \| <code>Uint32Array</code> \| <code>Float32Array</code> \| <code>Float64Array</code> \| <code>BigInt64Array</code> \| <code>BigUint64Array</code>
+A TypedArray object describes an array-like view of an underlying binary data buffer.
+
+**Kind**: global typedef  
 
 * * *

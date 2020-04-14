@@ -5,6 +5,27 @@
 // <--
 
 const inputs = [
+  BigInt(0),
+  BigInt(3855),
+  BigInt(19)
+];
+
+for (const input of inputs) {
+  describe(`bufToBigint(bigintToBuf(${input}))`, function () {
+    it(`should return ${input}`, function () {
+      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input));
+      chai.expect(ret).to.equal(input);
+    });
+  });
+}
+
+// Every test file (you can create as many as you want) should start like this
+// Please, do NOT touch. They will be automatically removed for browser tests -->
+
+
+// <--
+
+const inputs$1 = [
   {
     bi: BigInt(1),
     hex: '1'
@@ -14,13 +35,17 @@ const inputs = [
     hex: '1f'
   },
   {
+    bi: BigInt(3855),
+    hex: 'f0f'
+  },
+  {
     bi: BigInt('12485413541784539569456874935679853424678352483761'),
     hex: '88af94e6b1e99f8bf3b01edb619caaa656a5c75b1'
   }
 ];
 
 describe('bigintToHex', function () {
-  for (const input of inputs) {
+  for (const input of inputs$1) {
     describe(`bigintToHex(${input.bi})`, function () {
       it(`should return ${input.hex}`, function () {
         const ret = _pkg.bigintToHex(input.bi);
@@ -36,7 +61,7 @@ describe('bigintToHex', function () {
 
 // <--
 
-const inputs$1 = [
+const inputs$2 = [
   'Hello World',
   'Apañarse por qué?',
     `Lorem ipsum dolor sit amet, consectetur adipisci tempor incidunt ut labore et dolore magna aliqua veniam, quis nostrud exercitation ullamcorpor s commodo consequat. Duis autem vel eum irrure esse molestiae consequat, vel illum dolore eu fugi et iusto odio dignissim qui blandit praesent luptat exceptur sint occaecat cupiditat non provident, deserunt mollit anim id est laborum et dolor fuga distinct. Nam liber tempor cum soluta nobis elige quod maxim placeat facer possim omnis volupt
@@ -47,7 +72,7 @@ const inputs$1 = [
 ];
 
 describe('bigintToText((textToBigint(str))) === str ', function () {
-  for (const input of inputs$1) {
+  for (const input of inputs$2) {
     describe(`bigintToText((textToBigint(${input})))`, function () {
       it(`should return ${input}`, function () {
         const ret = _pkg.bigintToText(_pkg.textToBigint(input));
@@ -63,7 +88,7 @@ describe('bigintToText((textToBigint(str))) === str ', function () {
 
 // <--
 
-const inputs$2 = [
+const inputs$3 = [
   {
     bi: BigInt(1),
     hex: '1'
@@ -79,7 +104,7 @@ const inputs$2 = [
 ];
 
 describe('hexToBigint', function () {
-  for (const input of inputs$2) {
+  for (const input of inputs$3) {
     describe(`hexToBigint(${input.hex})`, function () {
       it(`should return ${input.bi}`, function () {
         const ret = _pkg.hexToBigint(input.hex);
@@ -88,3 +113,39 @@ describe('hexToBigint', function () {
     });
   }
 });
+
+// Every test file (you can create as many as you want) should start like this
+// Please, do NOT touch. They will be automatically removed for browser tests -->
+
+
+// <--
+
+const inputs$4 = [
+  {
+    buf: Buffer.alloc(1, 0),
+    hex: '00'
+  },
+  {
+    buf: Buffer.alloc(2, 15),
+    hex: '0f0f'
+  },
+  {
+    buf: Buffer.alloc(8, 127),
+    hex: '7f7f7f7f7f7f7f7f'
+  }
+];
+
+for (const input of inputs$4) {
+  describe(`bufToHex(${input.buf})`, function () {
+    it(`should return ${input.hex}`, function () {
+      const ret = _pkg.bufToHex(input.buf);
+      chai.expect(ret).to.equal(input.hex);
+    });
+  });
+  describe(`hexToBuf(${input.hex})`, function () {
+    it('should return the corresponding buffer', function () {
+      const ret = _pkg.hexToBuf(input.hex);
+      chai.expect(Buffer.from(ret).compare(input.buf)).to.equal(0);
+    });
+  });
+}

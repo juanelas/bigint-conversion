@@ -14,3 +14,6 @@ node_modules/
 
 # Visual Studio Code
 .vscode
+
+# MYC output
+.nyc_output

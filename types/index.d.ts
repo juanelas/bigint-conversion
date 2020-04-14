@@ -1,11 +1,19 @@
 /**
- * Converts a bigint to a buffer (node.js) or ArrayBuffer (native js)
+ * A TypedArray object describes an array-like view of an underlying binary data buffer.
+ */
+export type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array | BigInt64Array | BigUint64Array;
+/**
+ * A TypedArray object describes an array-like view of an underlying binary data buffer.
+ * @typedef {Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array} TypedArray
+ */
+/**
+ * Converts a bigint to an ArrayBuffer
  *
  * @param {bigint} a
  *
- * @returns {Buffer|ArrayBuffer} A buffer (node.js) or ArrayBuffer (native js) with a binary representation of the input bigint
+ * @returns {ArrayBuffer} An ArrayBuffer with a binary representation of the input bigint
  */
-export function bigintToBuf(a: bigint): ArrayBuffer | Buffer;
+export function bigintToBuf(a: bigint): ArrayBuffer;
 /**
  * Converts a bigint to a hexadecimal string
  *
@@ -23,29 +31,29 @@ export function bigintToHex(a: bigint): any;
  */
 export function bigintToText(a: bigint): string;
 /**
- * Converts a Buffer (node.js) or ArrayBuffer|TypedArray (native js) to a bigint
+ * Converts an ArrayBuffer, TypedArray or Buffer (node.js) to a bigint
  *
- * @param {Buffer|ArrayBuffer|TypedArray} buf
+ * @param {ArrayBuffer|TypedArray|Buffer} buf
  *
  * @returns {bigint} A BigInt
  */
-export function bufToBigint(buf: any): bigint;
+export function bufToBigint(buf: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array | BigInt64Array | BigUint64Array | Buffer): bigint;
 /**
  * Returns the hexadecimal representation of a buffer.
  *
- * @param {Buffer|ArrayBuffer|TypedArray} buf
+ * @param {ArrayBuffer|TypedArray|Buffer} buf
  *
  * @returns {string} A string with a hexadecimal representation of the input buffer
  */
-export function bufToHex(buf: any): string;
+export function bufToHex(buf: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array | BigInt64Array | BigUint64Array | Buffer): string;
 /**
- * Converts a buffer (node) or a ArrayBuffer (native js) containing utf-8 encoded text to a string of utf-8 text
+ *Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded text to a string of utf-8 text
  *
- * @param {Buffer|ArrayBuffer|TypedArray} buf A buffer containing utf-8 encoded text
+ * @param {ArrayBuffer|TypedArray|Buffer} buf A buffer containing utf-8 encoded text
  *
  * @returns {string} A string text with utf-8 encoding
  */
-export function bufToText(buf: any): string;
+export function bufToText(buf: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array | BigInt64Array | BigUint64Array | Buffer): string;
 /**
  * Converts a hexadecimal string to a bigint
  *
@@ -59,9 +67,9 @@ export function hexToBigint(hexStr: string): bigint;
  *
  * @param {string} hexStr A string representing a number with hexadecimal notation
  *
- * @returns {Buffer|ArrayBuffer} A Buffer (node) or ArrayBuffer (native js)
+ * @returns {ArrayBuffer} An ArrayBuffer
  */
-export function hexToBuf(hexStr: string): ArrayBuffer | Buffer;
+export function hexToBuf(hexStr: string): ArrayBuffer;
 /**
  * Converts a utf-8 string to a bigint (from its binary representaion)
  *
@@ -75,6 +83,6 @@ export function textToBigint(text: string): bigint;
  *
  * @param {string} str A string of text (with utf-8 encoding)
  *
- * @returns {Buffer|ArrayBuffer} A buffer containing the utf-8 encoded text
+ * @returns {ArrayBuffer} An ArrayBuffer containing the utf-8 encoded text
  */
-export function textToBuf(str: string): ArrayBuffer | Buffer;
+export function textToBuf(str: string): ArrayBuffer;
