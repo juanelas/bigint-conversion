@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * A TypedArray object describes an array-like view of an underlying binary data buffer.
  * @typedef {Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array} TypedArray
@@ -72,7 +70,7 @@ export function textToBigint (text) {
 }
 
 /**
- *Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded text to a string of utf-8 text
+ *Converts an ArrayBuffer, TypedArray or Buffer (in Node.js) containing utf-8 encoded text to a string of utf-8 text
  *
  * @param {ArrayBuffer|TypedArray|Buffer} buf A buffer containing utf-8 encoded text
  *
@@ -84,13 +82,17 @@ export function bufToText (buf) {
 }
 
 /**
- * Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)
+ * Converts a string of utf-8 encoded text to an ArrayBuffer or a Buffer (default in Node.js)
  *
  * @param {string} str A string of text (with utf-8 encoding)
+ * @param {returnArrayBuffer} [boolean = false] In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default).
  *
- * @returns {ArrayBuffer} An ArrayBuffer containing the utf-8 encoded text
+ * @returns {ArrayBuffer|Buffer} An ArrayBuffer or a Buffer containing the utf-8 encoded text
  */
-export function textToBuf (str) {
+export function textToBuf (str, returnArrayBuffer) {
+  if (!process.browser && !returnArrayBuffer) {
+    return Buffer.from(new TextEncoder().encode(str).buffer)
+  }
   return new TextEncoder().encode(str).buffer
 }
 
@@ -122,13 +124,13 @@ export function bufToHex (buf) {
  * @returns {ArrayBuffer} An ArrayBuffer
  */
 export function hexToBuf (hexStr) {
+  hexStr = !(hexStr.length % 2) ? hexStr : '0' + hexStr
   /* eslint-disable no-lone-blocks */
   if (process.browser) {
     return Uint8Array.from(hexStr.trimLeft('0x').match(/[\da-f]{2}/gi).map((h) => {
       return parseInt(h, 16)
     })).buffer
   } else {
-    hexStr = !(hexStr.length % 2) ? hexStr : '0' + hexStr
     const b = Buffer.from(hexStr, 'hex')
     return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)
   }

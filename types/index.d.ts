@@ -47,7 +47,7 @@ export function bufToBigint(buf: ArrayBuffer | Int8Array | Uint8Array | Uint8Cla
  */
 export function bufToHex(buf: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array | BigInt64Array | BigUint64Array | Buffer): string;
 /**
- *Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded text to a string of utf-8 text
+ *Converts an ArrayBuffer, TypedArray or Buffer (in Node.js) containing utf-8 encoded text to a string of utf-8 text
  *
  * @param {ArrayBuffer|TypedArray|Buffer} buf A buffer containing utf-8 encoded text
  *
@@ -79,10 +79,11 @@ export function hexToBuf(hexStr: string): ArrayBuffer;
  */
 export function textToBigint(text: string): bigint;
 /**
- * Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)
+ * Converts a string of utf-8 encoded text to an ArrayBuffer or a Buffer (default in Node.js)
  *
  * @param {string} str A string of text (with utf-8 encoding)
+ * @param {returnArrayBuffer} [boolean = false] In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default).
  *
- * @returns {ArrayBuffer} An ArrayBuffer containing the utf-8 encoded text
+ * @returns {ArrayBuffer|Buffer} An ArrayBuffer or a Buffer containing the utf-8 encoded text
  */
-export function textToBuf(str: string): ArrayBuffer;
+export function textToBuf(str: string, returnArrayBuffer: any): ArrayBuffer | Buffer;

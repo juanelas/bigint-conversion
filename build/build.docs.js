@@ -28,8 +28,8 @@ const source = fs.readFileSync(input, { encoding: 'UTF-8' }).replace(/([0-9]+)n(
 const options = {
   source,
   template,
-  'heading-depth': 3 // The initial heading depth. For example, with a value of 2 the top-level markdown headings look like "## The heading"
-  // 'global-index-format': 'none' // none, grouped, table, dl.
+  'heading-depth': 3, // The initial heading depth. For example, with a value of 2 the top-level markdown headings look like "## The heading"
+  'global-index-format': 'none' // none, grouped, table, dl.
 }
 
 jsdoc2md.clear().then(() => {

@@ -1,3 +1,4 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Build Status](https://travis-ci.org/juanelas/bigint-conversion.svg?branch=master)](https://travis-ci.org/juanelas/bigint-conversion)
 [![Coverage Status](https://coveralls.io/repos/github/juanelas/bigint-conversion/badge.svg?branch=master)](https://coveralls.io/github/juanelas/bigint-conversion?branch=master)
@@ -30,49 +31,6 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 > BigInt is [ES-2020](https://tc39.es/ecma262/#sec-bigint-objects). In order to use it with TypeScript you should set `lib` (and probably also `target` and `module`) to `esnext` in `tsconfig.json`.
 
 # bigint-conversion JS Doc
-
-### Functions
-
-<dl>
-<dt><a href="#bigintToBuf">bigintToBuf(a)</a> ⇒ <code>ArrayBuffer</code></dt>
-<dd><p>Converts a bigint to an ArrayBuffer</p>
-</dd>
-<dt><a href="#bufToBigint">bufToBigint(buf)</a> ⇒ <code>bigint</code></dt>
-<dd><p>Converts an ArrayBuffer, TypedArray or Buffer (node.js) to a bigint</p>
-</dd>
-<dt><a href="#bigintToHex">bigintToHex(a)</a> ⇒ <code>str</code></dt>
-<dd><p>Converts a bigint to a hexadecimal string</p>
-</dd>
-<dt><a href="#hexToBigint">hexToBigint(hexStr)</a> ⇒ <code>bigint</code></dt>
-<dd><p>Converts a hexadecimal string to a bigint</p>
-</dd>
-<dt><a href="#bigintToText">bigintToText(a)</a> ⇒ <code>string</code></dt>
-<dd><p>Converts a bigint representing a binary array of utf-8 encoded text to a string of utf-8 text</p>
-</dd>
-<dt><a href="#textToBigint">textToBigint(text)</a> ⇒ <code>bigint</code></dt>
-<dd><p>Converts a utf-8 string to a bigint (from its binary representaion)</p>
-</dd>
-<dt><a href="#bufToText">bufToText(buf)</a> ⇒ <code>string</code></dt>
-<dd><p>Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded text to a string of utf-8 text</p>
-</dd>
-<dt><a href="#textToBuf">textToBuf(str)</a> ⇒ <code>ArrayBuffer</code></dt>
-<dd><p>Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)</p>
-</dd>
-<dt><a href="#bufToHex">bufToHex(buf)</a> ⇒ <code>string</code></dt>
-<dd><p>Returns the hexadecimal representation of a buffer.</p>
-</dd>
-<dt><a href="#hexToBuf">hexToBuf(hexStr)</a> ⇒ <code>ArrayBuffer</code></dt>
-<dd><p>Converts a hexadecimal string to a buffer</p>
-</dd>
-</dl>
-
-### Typedefs
-
-<dl>
-<dt><a href="#TypedArray">TypedArray</a> : <code>Int8Array</code> | <code>Uint8Array</code> | <code>Uint8ClampedArray</code> | <code>Int16Array</code> | <code>Uint16Array</code> | <code>Int32Array</code> | <code>Uint32Array</code> | <code>Float32Array</code> | <code>Float64Array</code> | <code>BigInt64Array</code> | <code>BigUint64Array</code></dt>
-<dd><p>A TypedArray object describes an array-like view of an underlying binary data buffer.</p>
-</dd>
-</dl>
 
 <a name="bigintToBuf"></a>
 
@@ -149,7 +107,7 @@ Converts a utf-8 string to a bigint (from its binary representaion)
 <a name="bufToText"></a>
 
 ### bufToText(buf) ⇒ <code>string</code>
-Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded text to a string of utf-8 text
+Converts an ArrayBuffer, TypedArray or Buffer (in Node.js) containing utf-8 encoded text to a string of utf-8 text
 
 **Kind**: global function  
 **Returns**: <code>string</code> - A string text with utf-8 encoding  
@@ -160,15 +118,16 @@ Converts an ArrayBuffer, TypedArray or Buffer (node.js) containing utf-8 encoded
 
 <a name="textToBuf"></a>
 
-### textToBuf(str) ⇒ <code>ArrayBuffer</code>
-Converts a string of utf-8 encoded text to a Buffer (node) or ArrayBuffer (native js)
+### textToBuf(str, [boolean]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
+Converts a string of utf-8 encoded text to an ArrayBuffer or a Buffer (default in Node.js)
 
 **Kind**: global function  
-**Returns**: <code>ArrayBuffer</code> - An ArrayBuffer containing the utf-8 encoded text  
+**Returns**: <code>ArrayBuffer</code> \| <code>Buffer</code> - An ArrayBuffer or a Buffer containing the utf-8 encoded text  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| str | <code>string</code> | A string of text (with utf-8 encoding) |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| str | <code>string</code> |  | A string of text (with utf-8 encoding) |
+| [boolean] | <code>returnArrayBuffer</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
 
 <a name="bufToHex"></a>
 
