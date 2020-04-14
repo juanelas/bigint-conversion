@@ -34,7 +34,7 @@ For web browsers, you can also directly download the [IIFE file](https://raw.git
 
 <a name="bigintToBuf"></a>
 
-### bigintToBuf(a, [boolean]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
+### bigintToBuf(a, [returnArrayBuffer]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
 Converts a bigint to an ArrayBuffer or a Buffer (default for Node.js)
 
 **Kind**: global function  
@@ -43,7 +43,7 @@ Converts a bigint to an ArrayBuffer or a Buffer (default for Node.js)
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | a | <code>bigint</code> |  |  |
-| [boolean] | <code>returnArrayBuffer</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
+| [returnArrayBuffer] | <code>boolean</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
 
 <a name="bufToBigint"></a>
 
@@ -119,7 +119,7 @@ Converts an ArrayBuffer, TypedArray or Buffer (in Node.js) containing utf-8 enco
 
 <a name="textToBuf"></a>
 
-### textToBuf(str, [boolean]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
+### textToBuf(str, [returnArrayBuffer]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
 Converts a string of utf-8 encoded text to an ArrayBuffer or a Buffer (default in Node.js)
 
 **Kind**: global function  
@@ -128,7 +128,7 @@ Converts a string of utf-8 encoded text to an ArrayBuffer or a Buffer (default i
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | str | <code>string</code> |  | A string of text (with utf-8 encoding) |
-| [boolean] | <code>returnArrayBuffer</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
+| [returnArrayBuffer] | <code>boolean</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
 
 <a name="bufToHex"></a>
 
@@ -144,7 +144,7 @@ Returns the hexadecimal representation of a buffer.
 
 <a name="hexToBuf"></a>
 
-### hexToBuf(hexStr, [boolean]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
+### hexToBuf(hexStr, [returnArrayBuffer]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
 Converts a hexadecimal string to a buffer
 
 **Kind**: global function  
@@ -153,7 +153,7 @@ Converts a hexadecimal string to a buffer
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | hexStr | <code>string</code> |  | A string representing a number with hexadecimal notation |
-| [boolean] | <code>returnArrayBuffer</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
+| [returnArrayBuffer] | <code>boolean</code> | <code>false</code> | In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default). |
 
 <a name="TypedArray"></a>
 

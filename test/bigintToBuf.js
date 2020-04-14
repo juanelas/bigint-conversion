@@ -7,22 +7,25 @@ const chai = require('chai')
 // <--
 
 const inputs = [
-  BigInt(0),
-  BigInt(3855),
-  BigInt(19)
+  {
+    bi: BigInt(0),
+    returnArrayBuffer: true
+  },
+  {
+    bi: BigInt(3855),
+    returnArrayBuffer: false
+  },
+  {
+    bi: BigInt(19),
+    returnArrayBuffer: true
+  }
 ]
 
-let returnArrayBuffer = false
-
 for (const input of inputs) {
-  describe(`bufToBigint(bigintToBuf(${input}))`, function () {
-    it(`should return ${input}`, function () {
-      /* eslint-disable no-unneeded-ternary */
-      returnArrayBuffer = returnArrayBuffer ? false : true
-      /* eslint-enable no-unneeded-ternary */
-
-      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, returnArrayBuffer))
-      chai.expect(ret).to.equal(input)
+  describe(`bufToBigint(bigintToBuf(${input.bi}))`, function () {
+    it(`should return ${input.bi}`, function () {
+      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input.bi, input.returnArrayBuffer))
+      chai.expect(ret).to.equal(input.bi)
     })
   })
 }
