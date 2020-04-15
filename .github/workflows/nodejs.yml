@@ -32,6 +32,3 @@ jobs:
 
       - name: test
         run: npm test
-      
-      - name: create code coverage report
-        run: npm run coverage
