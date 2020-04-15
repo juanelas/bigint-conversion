@@ -12,20 +12,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      
       - name: install
         run: npm ci
 
       - name: build
         run: npm run build
 
-      - name: test with coverage
+      - name: test
         run: npm test
+      
+      - name: create code coverage report
+        run: npm run coverage
 
-      - name: coveralls
-        if: matrix.node-version == 12
+      - name: send report to coveralls.io
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
