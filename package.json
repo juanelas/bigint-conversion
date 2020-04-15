@@ -20,7 +20,7 @@
   },
   "repository": "github:juanelas/bigint-conversion",
   "engines": {
-    "node": ">=10.4"
+    "node": ">=11"
   },
   "main": "./lib/index.node.js",
   "browser": "./lib/index.browser.mod.js",
