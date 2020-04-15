@@ -24,6 +24,7 @@ npm-debug.log*
 
 # MYC output
 .nyc_output
+coverage/*
 
 # Travis
 .travis.yml
