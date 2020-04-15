@@ -1,7 +1,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Build Status](https://travis-ci.org/juanelas/bigint-conversion.svg?branch=master)](https://travis-ci.org/juanelas/bigint-conversion)
+![build](https://github.com/juanelas/bigint-conversion/workflows/build/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/juanelas/bigint-conversion/badge.svg?branch=master)](https://coveralls.io/github/juanelas/bigint-conversion?branch=master)
+![npm](https://github.com/juanelas/bigint-conversion/workflows/npm/badge.svg)
+
 
 # bigint-conversion
 Convert to/from [ES-2020 native JS implementation of BigInt](https://tc39.es/ecma262/#sec-bigint-objects) from/to:
