@@ -7,25 +7,25 @@ const chai = require('chai')
 // <--
 
 const inputs = [
-  {
-    bi: BigInt(0),
-    returnArrayBuffer: true
-  },
-  {
-    bi: BigInt(3855),
-    returnArrayBuffer: false
-  },
-  {
-    bi: BigInt(19),
-    returnArrayBuffer: true
-  }
+  BigInt(0),
+  BigInt(3855),
+  BigInt(19),
+  BigInt('987597451974567914535761247965237569172456791242479651917245614514261463156346357315735752714364354354647135713476134634753735714534636')
 ]
 
 for (const input of inputs) {
-  describe(`bufToBigint(bigintToBuf(${input.bi}))`, function () {
-    it(`should return ${input.bi}`, function () {
-      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input.bi, input.returnArrayBuffer))
-      chai.expect(ret).to.equal(input.bi)
+  describe(`bufToBigint(bigintToBuf(${input}))`, function () {
+    it(`should return ${input}`, function () {
+      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input))
+      chai.expect(ret).to.equal(input)
+    })
+    it(`should return ${input}`, function () {
+      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, true))
+      chai.expect(ret).to.equal(input)
+    })
+    it(`should return ${input}`, function () {
+      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, false))
+      chai.expect(ret).to.equal(input)
     })
   })
 }
