@@ -42,7 +42,7 @@
     "build:docs": "node build/build.docs.js",
     "build:dts": "node build/build.dts.js",
     "build": "run-s build:**",
-    "preversion": "npm run build && npm run test && npm run coverage",
+    "preversion": "npm run build && npm run test",
     "postversion": "git push"
   },
   "standard": {
