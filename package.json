@@ -1,7 +1,7 @@
 {
   "name": "bigint-conversion",
   "version": "2.1.7",
-  "description": "Convert to/from BigInt from/to buffer, hex string, utf8-encoded text string.",
+  "description": "Convert to/from BigInt from/to Buffer, ArrayBuffer, hex string, utf8-encoded text string.",
   "keywords": [
     "BigInt",
     "bignum",
@@ -10,7 +10,8 @@
     "utf8",
     "hex",
     "Buffer",
-    "ArrayBuffer"
+    "ArrayBuffer",
+    "TypedArray"
   ],
   "license": "MIT",
   "author": {
@@ -27,7 +28,6 @@
   "types": "./types/index.d.ts",
   "directories": {
     "build": "./build",
-    "coverage": "./coverage",
     "lib": "./lib",
     "src": "./src",
     "test": "./test",
