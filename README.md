@@ -24,13 +24,37 @@ bigint-conversion can be imported to your project with `npm`:
 npm install bigint-conversion
 ```
 
-NPM installation defaults to the ES6 module for browsers and the CJS one for Node.js.
+NPM installation defaults to the ES6 module for browsers and the CJS one for Node.js. For web browsers, you can also directly download the [IIFE bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/lib/index.browser.bundle.iife.js) or the [ESM bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/lib/index.browser.bundle.mod.js) from the repository.
 
-For web browsers, you can also directly download the [IIFE file](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/dist/index.browser.bundle.iife.js) or the [ES6 module](https://raw.githubusercontent.com/juanelas/bigint-conversionmaster/dist/index.browser.bundle.mod.js) from GitHub.
+Import your module as :
 
-> BigInt is [ES-2020](https://tc39.es/ecma262/#sec-bigint-objects). In order to use it with TypeScript you should set `lib` (and probably also `target` and `module`) to `esnext` in `tsconfig.json`.
+ - Node.js
+   ```javascript
+   const bigintConversion = require('bigint-conversion')
+   ... // your code here
+   ```
+ - JavaScript native or TypeScript project
+   ```javascript
+   import * as bigintConversion from 'bigint-conversion'
+   ... // your code here
+   ```
+   > BigInt is [ES-2020](https://tc39.es/ecma262/#sec-bigint-objects). In order to use it with TypeScript you should set `lib` (and probably also `target` and `module`) to `esnext` in `tsconfig.json`.
+ - JavaScript native browser ES6 mod
+   ```html
+   <script type="module">
+      import * as bigintConversion from 'lib/index.browser.bundle.mod.js'  // Use you actual path to the broser mod bundle
+      ... // your code here
+    </script>
+   ```
+ - JavaScript native browser IIFE
+   ```html
+   <script src="../../lib/index.browser.bundle.js"></script> <!-- Use you actual path to the browser bundle -->
+   <script>
+     ... // your code here
+   </script>
+   ```
 
-# bigint-conversion JS Doc
+## API reference documentation
 
 <a name="bigintToBuf"></a>
 
