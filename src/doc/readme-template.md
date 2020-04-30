@@ -47,7 +47,7 @@ Import your module as :
    ```
  - JavaScript native browser IIFE
    ```html
-   <script src="../../lib/index.browser.bundle.js"></script> <!-- Use you actual path to the browser bundle -->
+   <script src="../../lib/index.browser.bundle.iife.js"></script> <!-- Use you actual path to the browser bundle -->
    <script>
      ... // your code here
    </script>
