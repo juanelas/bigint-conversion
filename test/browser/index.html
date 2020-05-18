@@ -16,10 +16,12 @@
   </script>
 
   <script type="module">
-    import * as _pkg from '../../../lib/index.browser.bundle.mod.js'
-    window._pkg = _pkg
-    import './tests.js'
-    mocha.run()
+    (async () => {
+      const _pkg = await import('../../../lib/index.browser.bundle.mod.js')
+      window._pkg = _pkg
+      await import('./tests.js')
+      mocha.run()
+    })()
   </script>
 </body>
 

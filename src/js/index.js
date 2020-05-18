@@ -23,7 +23,17 @@ export function bigintToBuf (a, returnArrayBuffer = false) {
  * @returns {bigint} A BigInt
  */
 export function bufToBigint (buf) {
-  return BigInt('0x' + bufToHex(buf))
+  // return BigInt('0x' + bufToHex(buf))
+  let bits = 8n
+  if (ArrayBuffer.isView(buf)) bits = BigInt(buf.BYTES_PER_ELEMENT * 8)
+  else buf = new Uint8Array(buf)
+
+  let ret = 0n
+  for (const i of buf.values()) {
+    const bi = BigInt(i)
+    ret = (ret << bits) + bi
+  }
+  return ret
 }
 
 /**
@@ -108,12 +118,17 @@ export function bufToHex (buf) {
   /* eslint-disable no-lone-blocks */
   if (process.browser) {
     let s = ''
-    const h = '0123456789abcdef';
-    (new Uint8Array(buf)).forEach((v) => {
+    const h = '0123456789abcdef'
+    if (ArrayBuffer.isView(buf)) buf = new Uint8Array(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength))
+    else buf = new Uint8Array(buf)
+    buf.forEach((v) => {
       s += h[v >> 4] + h[v & 15]
     })
     return s
-  } else return Buffer.from(buf).toString('hex')
+  } else {
+    if (ArrayBuffer.isView(buf)) buf = new Uint8Array(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength))
+    return Buffer.from(buf).toString('hex')
+  }
   /* eslint-enable no-lone-blocks */
 }
 

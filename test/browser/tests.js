@@ -97,6 +97,36 @@ describe('bigintToText((textToBigint(str))) === str ', function () {
 
 // <--
 
+const tests = [
+  {
+    input: new Uint32Array(2),
+    output: BigInt(0)
+  },
+  {
+    input: _pkg.hexToBuf('ffffffff'),
+    output: BigInt(4294967295)
+  },
+  {
+    input: new Uint16Array(_pkg.hexToBuf('ffffffff', true)),
+    output: BigInt(4294967295)
+  }
+];
+
+for (const test of tests) {
+  describe(`bufToBigint(${_pkg.bufToHex(test.input)})`, function () {
+    it(`should return ${test.output.toString()}`, function () {
+      const ret = _pkg.bufToBigint(test.input);
+      chai.expect(ret.toString()).to.equal(test.output.toString());
+    });
+  });
+}
+
+// Every test file (you can create as many as you want) should start like this
+// Please, do NOT touch. They will be automatically removed for browser tests -->
+
+
+// <--
+
 const inputs$3 = [
   {
     bi: BigInt(1),
@@ -118,6 +148,44 @@ describe('hexToBigint', function () {
       it(`should return ${input.bi}`, function () {
         const ret = _pkg.hexToBigint(input.hex);
         chai.expect(ret).to.equal(input.bi);
+      });
+    });
+  }
+});
+
+// Every test file (you can create as many as you want) should start like this
+// Please, do NOT touch. They will be automatically removed for browser tests -->
+
+
+// <--
+
+const tests$1 = [
+  {
+    buf: new Uint8Array([9, 255]),
+    hex: '09ff'
+  },
+  {
+    buf: new Uint16Array([5, 256]),
+    hex: '05000001'
+  },
+  {
+    buf: new ArrayBuffer(2),
+    hex: '0000'
+  }
+];
+
+describe('hexToBuf and bufToHex', function () {
+  for (const test of tests$1) {
+    describe(`bufToHex(${test.buf.toString()})`, function () {
+      it(`should return ${test.hex}`, function () {
+        const ret = _pkg.bufToHex(test.buf);
+        chai.expect(ret).to.equal(test.hex);
+      });
+    });
+    describe(`bufToHex(hexToBuf(${test.hex}))`, function () {
+      it(`should return ${test.hex}`, function () {
+        const ret = _pkg.bufToHex(_pkg.hexToBuf(test.hex));
+        chai.expect(ret).to.equal(test.hex);
       });
     });
   }
