@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/juanelas/bigint-conversion/badge.svg?branch=master)](https://coveralls.io/github/juanelas/bigint-conversion?branch=master)
 
 # bigint-conversion
-Convert to/from [ES-2020 native JS implementation of BigInt](https://tc39.es/ecma262/#sec-bigint-objects) from/to:
+Convert to/from non-negative integers represented with [ES-2020 native JS implementation of BigInt](https://tc39.es/ecma262/#sec-bigint-objects) from/to:
 
 - `Buffer` (node.js) or `ArrayBuffer|TypedArray` (native js),
 - hex `string`,
@@ -59,10 +59,14 @@ Import your module as :
 <a name="bigintToBuf"></a>
 
 ### bigintToBuf(a, [returnArrayBuffer]) ⇒ <code>ArrayBuffer</code> \| <code>Buffer</code>
-Converts a bigint to an ArrayBuffer or a Buffer (default for Node.js)
+Converts an arbitrary-size non-negative bigint to an ArrayBuffer or a Buffer (default for Node.js)
 
 **Kind**: global function  
 **Returns**: <code>ArrayBuffer</code> \| <code>Buffer</code> - An ArrayBuffer or a Buffer with a binary representation of the input bigint  
+**Throws**:
+
+- <code>RangeError</code> a should be a non-negative integer. Negative values are not supported
+
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -84,10 +88,14 @@ Converts an ArrayBuffer, TypedArray or Buffer (node.js) to a bigint
 <a name="bigintToHex"></a>
 
 ### bigintToHex(a) ⇒ <code>str</code>
-Converts a bigint to a hexadecimal string
+Converts a non-negative bigint to a hexadecimal string
 
 **Kind**: global function  
 **Returns**: <code>str</code> - A hexadecimal representation of the input bigint  
+**Throws**:
+
+- <code>RangeError</code> a should be a non-negative integer. Negative values are not supported
+
 
 | Param | Type |
 | --- | --- |
@@ -108,14 +116,18 @@ Converts a hexadecimal string to a bigint
 <a name="bigintToText"></a>
 
 ### bigintToText(a) ⇒ <code>string</code>
-Converts a bigint representing a binary array of utf-8 encoded text to a string of utf-8 text
+Converts a non-negative bigint representing a binary array of utf-8 encoded text to a string of utf-8 text
 
 **Kind**: global function  
 **Returns**: <code>string</code> - A string text with utf-8 encoding  
+**Throws**:
+
+- <code>RangeError</code> a should be a non-negative integer. Negative values are not supported
+
 
 | Param | Type | Description |
 | --- | --- | --- |
-| a | <code>bigint</code> | A bigint representing a binary array of utf-8 encoded text. |
+| a | <code>bigint</code> | A non-negative bigint representing a binary array of utf-8 encoded text. |
 
 <a name="textToBigint"></a>
 

@@ -26,3 +26,9 @@ describe('bigintToText((textToBigint(str))) === str ', function () {
     })
   }
 })
+
+describe('bigintToText(-6n)', function () {
+  it('should throw RangeError', function () {
+    chai.expect(() => _pkg.bigintToText(BigInt('-6')).to.throw(RangeError))
+  })
+})

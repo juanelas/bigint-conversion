@@ -4,14 +4,17 @@
  */
 
 /**
- * Converts a bigint to an ArrayBuffer or a Buffer (default for Node.js)
+ * Converts an arbitrary-size non-negative bigint to an ArrayBuffer or a Buffer (default for Node.js)
  *
  * @param {bigint} a
  * @param {boolean} [returnArrayBuffer = false] In Node JS forces the output to be an ArrayBuffer instead of a Buffer (default).
  *
  * @returns {ArrayBuffer|Buffer} An ArrayBuffer or a Buffer with a binary representation of the input bigint
+ *
+ * @throws {RangeError} a should be a non-negative integer. Negative values are not supported
  */
 export function bigintToBuf (a, returnArrayBuffer = false) {
+  if (a < 0) throw RangeError('a should be a non-negative integer. Negative values are not supported')
   return hexToBuf(bigintToHex(a), returnArrayBuffer)
 }
 
@@ -37,13 +40,16 @@ export function bufToBigint (buf) {
 }
 
 /**
- * Converts a bigint to a hexadecimal string
+ * Converts a non-negative bigint to a hexadecimal string
  *
  * @param {bigint} a
  *
  * @returns {str} A hexadecimal representation of the input bigint
+ *
+ * @throws {RangeError} a should be a non-negative integer. Negative values are not supported
  */
 export function bigintToHex (a) {
+  if (a < 0) throw RangeError('a should be a non-negative integer. Negative values are not supported')
   return a.toString(16)
 }
 
@@ -59,13 +65,16 @@ export function hexToBigint (hexStr) {
 }
 
 /**
- * Converts a bigint representing a binary array of utf-8 encoded text to a string of utf-8 text
+ * Converts a non-negative bigint representing a binary array of utf-8 encoded text to a string of utf-8 text
  *
- * @param {bigint} a A bigint representing a binary array of utf-8 encoded text.
+ * @param {bigint} a A non-negative bigint representing a binary array of utf-8 encoded text.
  *
  * @returns {string} A string text with utf-8 encoding
+ *
+ * @throws {RangeError} a should be a non-negative integer. Negative values are not supported
  */
 export function bigintToText (a) {
+  if (a < 0) throw RangeError('a should be a non-negative integer. Negative values are not supported')
   return bufToText(hexToBuf(a.toString(16)))
 }
 

@@ -8,23 +8,36 @@ const inputs = [
   BigInt(0),
   BigInt(3855),
   BigInt(19),
-  BigInt('987597451974567914535761247965237569172456791242479651917245614514261463156346357315735752714364354354647135713476134634753735714534636')
+  BigInt('987597451974567914535761247965237569172456791242479651917245614514261463156346357315735752714364354354647135713476134634753735714534636'),
+  BigInt(-5)
 ];
 
 for (const input of inputs) {
   describe(`bufToBigint(bigintToBuf(${input}))`, function () {
-    it(`should return ${input}`, function () {
-      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input));
-      chai.expect(ret).to.equal(input);
-    });
-    it(`should return ${input}`, function () {
-      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, true));
-      chai.expect(ret).to.equal(input);
-    });
-    it(`should return ${input}`, function () {
-      const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, false));
-      chai.expect(ret).to.equal(input);
-    });
+    if (input < 0) {
+      it('should throw RangeError', function () {
+        chai.expect(() => _pkg.bufToBigint(_pkg.bigintToBuf(input).to.throw(RangeError)));
+      });
+      it('should throw RangeError', function () {
+        chai.expect(() => _pkg.bufToBigint(_pkg.bigintToBuf(input, true).to.throw(RangeError)));
+      });
+      it('should throw RangeError', function () {
+        chai.expect(() => _pkg.bufToBigint(_pkg.bigintToBuf(input, false).to.throw(RangeError)));
+      });
+    } else {
+      it(`should return ${input}`, function () {
+        const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input));
+        chai.expect(ret).to.equal(input);
+      });
+      it(`should return ${input}`, function () {
+        const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, true));
+        chai.expect(ret).to.equal(input);
+      });
+      it(`should return ${input}`, function () {
+        const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, false));
+        chai.expect(ret).to.equal(input);
+      });
+    }
   });
 }
 
@@ -50,17 +63,26 @@ const inputs$1 = [
   {
     bi: BigInt('12485413541784539569456874935679853424678352483761'),
     hex: '88af94e6b1e99f8bf3b01edb619caaa656a5c75b1'
+  },
+  {
+    bi: BigInt('-4')
   }
 ];
 
 describe('bigintToHex', function () {
   for (const input of inputs$1) {
-    describe(`bigintToHex(${input.bi})`, function () {
-      it(`should return ${input.hex}`, function () {
-        const ret = _pkg.bigintToHex(input.bi);
-        chai.expect(ret).to.equal(input.hex);
+    if (input.bi >= 0) {
+      describe(`bigintToHex(${input.bi})`, function () {
+        it(`should return ${input.hex}`, function () {
+          const ret = _pkg.bigintToHex(input.bi);
+          chai.expect(ret).to.equal(input.hex);
+        });
       });
-    });
+    } else {
+      it('should throw RangeError', function () {
+        chai.expect(() => _pkg.bigintToHex(input.bi)).to.throw(RangeError);
+      });
+    }
   }
 });
 
@@ -89,6 +111,12 @@ describe('bigintToText((textToBigint(str))) === str ', function () {
       });
     });
   }
+});
+
+describe('bigintToText(-6n)', function () {
+  it('should throw RangeError', function () {
+    chai.expect(() => _pkg.bigintToText(BigInt('-6')).to.throw(RangeError));
+  });
 });
 
 // Every test file (you can create as many as you want) should start like this

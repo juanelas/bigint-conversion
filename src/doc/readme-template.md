@@ -3,7 +3,7 @@
 {{GITHUB_ACTIONS_BADGES}}
 
 # {{PKG_NAME}}
-Convert to/from [ES-2020 native JS implementation of BigInt](https://tc39.es/ecma262/#sec-bigint-objects) from/to:
+Convert to/from non-negative integers represented with [ES-2020 native JS implementation of BigInt](https://tc39.es/ecma262/#sec-bigint-objects) from/to:
 
 - `Buffer` (node.js) or `ArrayBuffer|TypedArray` (native js),
 - hex `string`,
