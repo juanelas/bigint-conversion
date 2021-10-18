@@ -1,17 +1,25 @@
 {
-  "name": "@my-scope/my-package-name",
-  "version": "0.9.4",
-  "description": "My package is wonderful",
+  "name": "bigint-conversion",
+  "version": "2.1.12",
+  "description": "Convert to/from BigInt from/to Buffer, ArrayBuffer, hex string, utf8-encoded text string.",
   "keywords": [
-    "keyword1",
-    "keyword2"
+    "BigInt",
+    "bignum",
+    "big integer",
+    "text",
+    "utf8",
+    "hex",
+    "Buffer",
+    "ArrayBuffer",
+    "TypedArray"
   ],
   "license": "MIT",
   "author": {
-    "name": "My name",
-    "email": "email@myemaildomain.com"
+    "name": "Juan Hernández Serrano",
+    "email": "j.hernandez@upc.edu",
+    "url": "https://github.com/juanelas"
   },
-  "repository": "repoprovider:username/my-package-name",
+  "repository": "github:juanelas/bigint-conversion",
   "types": "./types/index.d.ts",
   "main": "./dist/cjs/index.node.cjs",
   "browser": "./dist/esm/index.browser.js",

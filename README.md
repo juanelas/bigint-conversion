@@ -1,8 +1,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Node.js CI](https://github.com/juanelas/bigint-conversion/workflows/Node.js%20CI/badge.svg)](https://github.com/juanelas/bigint-conversion/actions?query=workflow%3A%22Node.js+CI%22)
+[![Coverage Status](https://coveralls.io/repos/github/juanelas/bigint-conversion/badge.svg?branch=master)](https://coveralls.io/github/juanelas/bigint-conversion?branch=master)
 
-
-# @my-scope/my-package-name
+# bigint-conversion
 
 Convert to/from non-negative integers represented with [ES-2020 native JS implementation of BigInt](https://tc39.es/ecma262/#sec-bigint-objects) from/to:
 
@@ -17,29 +18,29 @@ It provides a common interface for the conversions that works for both **node.js
 
 ## Usage
 
-`@my-scope/my-package-name` can be imported to your project with `npm`:
+`bigint-conversion` can be imported to your project with `npm`:
 
 ```console
-npm install @my-scope/my-package-name
+npm install bigint-conversion
 ```
 
 Then either require (Node.js CJS):
 
 ```javascript
-const myPackageName = require('@my-scope/my-package-name')
+const bigintConversion = require('bigint-conversion')
 ```
 
 or import (JavaScript ES module):
 
 ```javascript
-import * as myPackageName from '@my-scope/my-package-name'
+import * as bigintConversion from 'bigint-conversion'
 ```
 
 The appropriate version for browser or node is automatically exported.
 
 > BigInt is [ES-2020](https://tc39.es/ecma262/#sec-bigint-objects). In order to use it with TypeScript you should set `target` (and probably also `lib`) to at least `es2020` in `tsconfig.json`.
 
-You can also download the IIFE bundle, the ESM bundle or the UMD bundle and manually add it to your project, or, if you have already installed `@my-scope/my-package-name` in your project, just get the bundles from `node_modules/@my-scope/my-package-name/dist/bundles/`.
+You can also download the [IIFE bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/dist/bundles/iife.js), the [ESM bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/dist/bundles/esm.min.js) or the [UMD bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/master/dist/bundles/umd.js) and manually add it to your project, or, if you have already installed `bigint-conversion` in your project, just get the bundles from `node_modules/bigint-conversion/dist/bundles/`.
 
 ## API reference documentation
 
