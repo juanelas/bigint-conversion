@@ -1,8 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+{{GITHUB_ACTIONS_BADGES}}
 
-
-# @my-scope/my-package-name
+# {{PKG_NAME}}
 
 Convert to/from non-negative integers represented with [ES-2020 native JS implementation of BigInt](https://tc39.es/ecma262/#sec-bigint-objects) from/to:
 
@@ -17,29 +17,29 @@ It provides a common interface for the conversions that works for both **node.js
 
 ## Usage
 
-`@my-scope/my-package-name` can be imported to your project with `npm`:
+`{{PKG_NAME}}` can be imported to your project with `npm`:
 
 ```console
-npm install @my-scope/my-package-name
+npm install {{PKG_NAME}}
 ```
 
 Then either require (Node.js CJS):
 
 ```javascript
-const myPackageName = require('@my-scope/my-package-name')
+const {{PKG_CAMELCASE}} = require('{{PKG_NAME}}')
 ```
 
 or import (JavaScript ES module):
 
 ```javascript
-import * as myPackageName from '@my-scope/my-package-name'
+import * as {{PKG_CAMELCASE}} from '{{PKG_NAME}}'
 ```
 
 The appropriate version for browser or node is automatically exported.
 
 > BigInt is [ES-2020](https://tc39.es/ecma262/#sec-bigint-objects). In order to use it with TypeScript you should set `target` (and probably also `lib`) to at least `es2020` in `tsconfig.json`.
 
-You can also download the IIFE bundle, the ESM bundle or the UMD bundle and manually add it to your project, or, if you have already installed `@my-scope/my-package-name` in your project, just get the bundles from `node_modules/@my-scope/my-package-name/dist/bundles/`.
+You can also download the {{IIFE_BUNDLE}}, the {{ESM_BUNDLE}} or the {{UMD_BUNDLE}} and manually add it to your project, or, if you have already installed `{{PKG_NAME}}` in your project, just get the bundles from `node_modules/{{PKG_NAME}}/dist/bundles/`.
 
 ## API reference documentation
 

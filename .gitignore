@@ -1,20 +1,17 @@
-# Project specific files
-dist/bigint-conversion-?.?.?.*
-
 # Logs
 logs
 *.log
 npm-debug.log*
 
 # Dependency directories
-node_modules/
+node_modules
 
 # Output of 'npm pack'
 *.tgz
 
-# Visual Studio Code
-.vscode
-
 # MYC output
 .nyc_output
-coverage/*
+coverage
+
+# Test temporal files
+.mocha-ts

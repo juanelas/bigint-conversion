@@ -1,15 +1,9 @@
-# Project specific files
-dist/bigint-conversion-?.?.?.*
-
 # Build scripts
-build/*
-
-# Source files
-src/*
+build
 
 # Test files
-test/*
-
+test
+**/*.spec.ts
 
 # Logs
 logs
@@ -22,12 +16,21 @@ npm-debug.log*
 # Visual Studio Code
 .vscode
 
+# IntelliJ
+.idea
+
 # MYC output
 .nyc_output
-coverage/*
-
-# Travis
-.travis.yml
+coverage
 
 # GitHub
 .github
+
+# tsconfig
+tsconfig.json
+
+# SRC docs
+src/docs
+
+# Test temporal files
+.mocha-ts
