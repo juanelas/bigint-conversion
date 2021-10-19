@@ -1,0 +1,25 @@
+
+name: NPM-publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  npm:
+    name: Build and publish to NPM
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14.x
+    
+    - run: npm ci
+    
+    - run: npm run build --if-present
+
+    - run: npm publish --access public
+      env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
