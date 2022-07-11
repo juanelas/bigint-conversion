@@ -20,6 +20,7 @@
     "url": "https://github.com/juanelas"
   },
   "repository": "github:juanelas/bigint-conversion",
+  "type": "module",
   "types": "./types/index.d.ts",
   "main": "./dist/cjs/index.node.cjs",
   "browser": "./dist/esm/index.browser.js",
