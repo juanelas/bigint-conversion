@@ -2,12 +2,13 @@
 
 Conversions from/to bingint to TypedArray/Buffer, hex
 
-**`remarks`**
+**`Remarks`**
+
 This module runs perfectly in node.js and browsers
 
 ## Table of contents
 
-### Type aliases
+### Type Aliases
 
 - [TypedArray](API.md#typedarray)
 
@@ -26,7 +27,7 @@ This module runs perfectly in node.js and browsers
 - [textToBigint](API.md#texttobigint)
 - [textToBuf](API.md#texttobuf)
 
-## Type aliases
+## Type Aliases
 
 ### TypedArray
 
@@ -36,7 +37,7 @@ A TypedArray object describes an array-like view of an underlying binary data bu
 
 #### Defined in
 
-[index.ts:15](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L15)
+[index.ts:15](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L15)
 
 ## Functions
 
@@ -60,7 +61,7 @@ a bigint
 
 #### Defined in
 
-[index.ts:204](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L204)
+[index.ts:204](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L204)
 
 ___
 
@@ -70,7 +71,8 @@ ___
 
 Converts an arbitrary-size non-negative bigint to a base64 string
 
-**`throws`** {RangeError}
+**`Throws`**
+
 Thrown if a < 0
 
 #### Parameters
@@ -89,7 +91,7 @@ a base64 representation of the input bigint
 
 #### Defined in
 
-[index.ts:195](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L195)
+[index.ts:195](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L195)
 
 ___
 
@@ -99,7 +101,8 @@ ___
 
 Converts an arbitrary-size non-negative bigint to an ArrayBuffer or a Buffer (default for Node.js)
 
-**`throws`** {RangeError}
+**`Throws`**
+
 Thrown if a < 0.
 
 #### Parameters
@@ -117,7 +120,7 @@ an ArrayBuffer or a Buffer with a binary representation of the input bigint
 
 #### Defined in
 
-[index.ts:28](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L28)
+[index.ts:28](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L28)
 
 ___
 
@@ -127,7 +130,8 @@ ___
 
 Converts a non-negative bigint to a hexadecimal string
 
-**`throws`** {RangeError}
+**`Throws`**
+
 Thrown if a < 0
 
 #### Parameters
@@ -144,7 +148,7 @@ hexadecimal representation of the input bigint
 
 #### Defined in
 
-[index.ts:59](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L59)
+[index.ts:59](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L59)
 
 ___
 
@@ -154,7 +158,8 @@ ___
 
 Converts a non-negative bigint representing a binary array of utf-8 encoded text to a string of utf-8 text
 
-**`throws`** {RangeError}
+**`Throws`**
+
 Thrown if a < 0.
 
 #### Parameters
@@ -171,7 +176,7 @@ a string text with utf-8 encoding
 
 #### Defined in
 
-[index.ts:85](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L85)
+[index.ts:85](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L85)
 
 ___
 
@@ -185,7 +190,7 @@ Converts an ArrayBuffer, TypedArray or Buffer (node.js) to a bigint
 
 | Name | Type |
 | :------ | :------ |
-| `buf` | `ArrayBuffer` \| `Buffer` \| [`TypedArray`](API.md#typedarray) |
+| `buf` | [`TypedArray`](API.md#typedarray) \| `ArrayBuffer` \| `Buffer` |
 
 #### Returns
 
@@ -195,7 +200,7 @@ a bigint
 
 #### Defined in
 
-[index.ts:38](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L38)
+[index.ts:38](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L38)
 
 ___
 
@@ -209,7 +214,7 @@ Returns the hexadecimal representation of a buffer.
 
 | Name | Type |
 | :------ | :------ |
-| `buf` | `ArrayBuffer` \| `Buffer` \| [`TypedArray`](API.md#typedarray) |
+| `buf` | [`TypedArray`](API.md#typedarray) \| `ArrayBuffer` \| `Buffer` |
 
 #### Returns
 
@@ -219,7 +224,7 @@ a string with a hexadecimal representation of the input buffer
 
 #### Defined in
 
-[index.ts:135](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L135)
+[index.ts:135](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L135)
 
 ___
 
@@ -233,7 +238,7 @@ Converts an ArrayBuffer, TypedArray or Buffer (in Node.js) containing utf-8 enco
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `buf` | `ArrayBuffer` \| `Buffer` \| [`TypedArray`](API.md#typedarray) | A buffer containing utf-8 encoded text |
+| `buf` | [`TypedArray`](API.md#typedarray) \| `ArrayBuffer` \| `Buffer` | A buffer containing utf-8 encoded text |
 
 #### Returns
 
@@ -243,7 +248,7 @@ a string text with utf-8 encoding
 
 #### Defined in
 
-[index.ts:108](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L108)
+[index.ts:108](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L108)
 
 ___
 
@@ -267,7 +272,7 @@ a bigint
 
 #### Defined in
 
-[index.ts:71](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L71)
+[index.ts:71](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L71)
 
 ___
 
@@ -277,7 +282,8 @@ ___
 
 Converts a hexadecimal string to a buffer
 
-**`throws`** {RangeError}
+**`Throws`**
+
 Thrown if hexStr is undefined or not a hexadecimal.
 
 #### Parameters
@@ -295,7 +301,7 @@ An ArrayBuffer or a Buffer
 
 #### Defined in
 
-[index.ts:164](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L164)
+[index.ts:164](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L164)
 
 ___
 
@@ -319,7 +325,7 @@ a bigint representing a binary array of the input utf-8 encoded text
 
 #### Defined in
 
-[index.ts:97](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L97)
+[index.ts:97](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L97)
 
 ___
 
@@ -344,4 +350,4 @@ an ArrayBuffer or a Buffer containing the utf-8 encoded text
 
 #### Defined in
 
-[index.ts:121](https://github.com/juanelas/bigint-conversion/blob/15a88af/src/ts/index.ts#L121)
+[index.ts:121](https://github.com/juanelas/bigint-conversion/blob/4f7200f/src/ts/index.ts#L121)

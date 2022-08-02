@@ -1,7 +1,7 @@
 [![Licence: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Node.js CI](https://github.com/juanelas/bigint-conversion/workflows/Node.js%20CI/badge.svg)](https://github.com/juanelas/bigint-conversion/actions?query=workflow%3A%22Node.js+CI%22)
+[![Node.js CI](https://github.com/juanelas/bigint-conversion/workflows/build/badge.svg)](https://github.com/juanelas/bigint-conversion/actions?query=workflow%3A%22build%22)
 [![Coverage Status](https://coveralls.io/repos/github/juanelas/bigint-conversion/badge.svg?branch=master)](https://coveralls.io/github/juanelas/bigint-conversion?branch=master)
 
 # bigint-conversion

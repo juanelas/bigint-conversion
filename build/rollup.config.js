@@ -5,10 +5,11 @@ import replace from '@rollup/plugin-replace'
 import { terser } from 'rollup-plugin-terser'
 import typescriptPlugin from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
+import json from '@rollup/plugin-json'
 
 import { join } from 'path'
 import { existsSync } from 'fs-extra'
-import { directories, name as _name, dependencies, peerDependencies, exports } from '../package.json'
+import { directories, name as _name, exports } from '../package.json'
 import { compile } from './rollup-plugin-dts.js'
 
 const rootDir = join(__dirname, '..')
@@ -32,25 +33,14 @@ if (existsSync(input) !== true) throw new Error('The entry point should be index
 const tsBundleOptions = {
   tsconfig: join(rootDir, 'tsconfig.json'),
   outDir: undefined, // ignore outDir in tsconfig.json
-  exclude: ['test/**/*', 'src/**/*.spec.ts', './build/typings/global-this-pkg.d.ts']
+  include: ['src/ts/**/*', 'build/typings/is-browser.d.ts'],
+  exclude: ['src/**/*.spec.ts']
 }
-
-const external = [...Object.keys(dependencies || {}), ...Object.keys(peerDependencies || {})]
 
 const sourcemapOutputOptions = {
   sourcemap: 'inline',
   sourcemapExcludeSources: true
 }
-
-// function moveDirPlugin (srcDir, dstDir) {
-//   return {
-//     name: 'move-dir',
-//     closeBundle () {
-//       removeSync(dstDir)
-//       moveSync(srcDir, dstDir, { overwrite: true })
-//     }
-//   }
-// }
 
 function compileDts () {
   return {
@@ -62,71 +52,9 @@ function compileDts () {
 }
 
 export default [
-  { // ESM for browsers and declarations
+  { // Node ESM with declarations
     input: input,
     output: [
-      {
-        file: join(rootDir, exports['.'].default),
-        ...sourcemapOutputOptions,
-        format: 'es'
-      }
-    ],
-    plugins: [
-      replace({
-        IS_BROWSER: true,
-        preventAssignment: true
-      }),
-      typescriptPlugin(tsBundleOptions),
-      compileDts()
-    ],
-    external
-  },
-  { // Browser bundles
-    input: input,
-    output: [
-      {
-        file: join(dstDir, 'bundles/iife.js'),
-        format: 'iife',
-        name: pkgCamelisedName,
-        plugins: [terser()]
-      },
-      {
-        file: join(dstDir, 'bundles/esm.js'),
-        ...sourcemapOutputOptions,
-        format: 'es'
-      },
-      {
-        file: join(dstDir, 'bundles/esm.min.js'),
-        format: 'es',
-        plugins: [terser()]
-      },
-      {
-        file: join(dstDir, 'bundles/umd.js'),
-        format: 'umd',
-        name: pkgCamelisedName,
-        plugins: [terser()]
-      }
-    ],
-    plugins: [
-      replace({
-        IS_BROWSER: true,
-        preventAssignment: true
-      }),
-      typescriptPlugin(tsBundleOptions),
-      resolve({
-        browser: true,
-        exportConditions: ['browser', 'module', 'import', 'default']
-      })
-    ]
-  },
-  { // Node
-    input: input,
-    output: [
-      {
-        file: join(rootDir, exports['.'].node.require),
-        ...sourcemapOutputOptions,
-        format: 'cjs'
-      },
       {
         file: join(rootDir, exports['.'].node.import),
         ...sourcemapOutputOptions,
@@ -139,8 +67,111 @@ export default [
         preventAssignment: true
       }),
       typescriptPlugin(tsBundleOptions),
-      commonjs({ extensions: ['.js', '.cjs', '.ts', '.jsx', '.cjsx', '.tsx'] }) // the ".ts" extension is required
+      // resolve({
+      //   browser: false,
+      //   exportConditions: ['node']
+      // }),
+      compileDts(),
+      commonjs({ extensions: ['.js', '.cjs', '.ts', '.jsx', '.cjsx', '.tsx'] }), // the ".ts" extension is required
+      json()
+    ]
+  },
+  { // Node CJS
+    input: input,
+    output: [
+      {
+        file: join(rootDir, exports['.'].node.require),
+        ...sourcemapOutputOptions,
+        format: 'cjs',
+        exports: 'auto'
+      }
     ],
-    external
+    plugins: [
+      replace({
+        'await import(': 'require(',
+        delimiters: ['', ''],
+        preventAssignment: true
+      }),
+      replace({
+        IS_BROWSER: false,
+        preventAssignment: true
+      }),
+      typescriptPlugin(tsBundleOptions),
+      resolve({
+        browser: false,
+        exportConditions: ['node']
+      }),
+      commonjs({ extensions: ['.js', '.cjs', '.ts', '.jsx', '.cjsx', '.tsx'] }), // the ".ts" extension is required
+      json()
+    ]
+  },
+  { // ESM for browsers
+    input: input,
+    output: [
+      {
+        file: join(rootDir, exports['.'].default),
+        ...sourcemapOutputOptions,
+        format: 'es'
+      },
+      {
+        file: join(dstDir, 'bundles/esm.js'),
+        ...sourcemapOutputOptions,
+        format: 'es'
+      },
+      {
+        file: join(dstDir, 'bundles/esm.min.js'),
+        format: 'es',
+        plugins: [terser()]
+      }
+    ],
+    plugins: [
+      replace({
+        IS_BROWSER: true,
+        preventAssignment: true
+      }),
+      typescriptPlugin(tsBundleOptions),
+      resolve({
+        browser: true,
+        exportConditions: ['browser', 'default']
+      }),
+      commonjs({ extensions: ['.js', '.cjs', '.ts', '.jsx', '.cjsx', '.tsx'] }), // the ".ts" extension is required
+      json()
+    ]
+  },
+  { // Browser bundles
+    input: input,
+    output: [
+      {
+        file: join(dstDir, 'bundles/iife.js'),
+        format: 'iife',
+        name: pkgCamelisedName,
+        plugins: [terser()]
+      },
+      {
+        file: join(dstDir, 'bundles/umd.js'),
+        format: 'umd',
+        name: pkgCamelisedName,
+        plugins: [terser()]
+      }
+    ],
+    plugins: [
+      replace({
+        'await import(': 'require(',
+        delimiters: ['', ''],
+        preventAssignment: true
+      }),
+      replace({
+        IS_BROWSER: true,
+        preventAssignment: true
+      }),
+      typescriptPlugin(tsBundleOptions),
+      resolve({
+        browser: true,
+        exportConditions: ['browser', 'default'],
+        mainFields: ['browser', 'module', 'main']
+      }),
+      commonjs({ extensions: ['.js', '.cjs', '.ts', '.jsx', '.cjsx', '.tsx'] }), // the ".ts" extension is required
+      json()
+    ]
   }
 ]

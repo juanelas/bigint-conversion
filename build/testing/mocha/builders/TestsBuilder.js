@@ -1,69 +1,89 @@
-const path = require('path')
-const fs = require('fs')
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'fs'
+import json5 from 'json5'
+import { isAbsolute, join, relative, resolve } from 'path'
+import { fileURLToPath } from 'url'
 
-const ts = require('typescript')
-const JSON5 = require('json5')
+import typescript from 'typescript'
+import Builder from './Builder.js'
 
-const Builder = require('./Builder.js')
+const { sys, createSemanticDiagnosticsBuilderProgram, flattenDiagnosticMessageText, createWatchCompilerHost, createWatchProgram } = typescript
 
-const rootDir = path.join(__dirname, '../../../../')
+const __dirname = resolve(fileURLToPath(import.meta.url), '../')
+
+const rootDir = join(__dirname, '../../../../')
+
+// const pkgJson = (await import(join(rootDir, 'package.json'), {
+//   assert: {
+//     type: "json",
+//   }
+// })).default
+
+const pkgJson = json5.parse(readFileSync(join(rootDir, 'package.json')))
+
 const mochaTsRelativeDir = '.mocha-ts'
-const mochaTsDir = path.join(rootDir, mochaTsRelativeDir)
+const mochaTsDir = join(rootDir, mochaTsRelativeDir)
 
 const formatHost = {
   getCanonicalFileName: path => path,
-  getCurrentDirectory: ts.sys.getCurrentDirectory,
-  getNewLine: () => ts.sys.newLine
+  getCurrentDirectory: sys.getCurrentDirectory,
+  getNewLine: () => sys.newLine
 }
 
-module.exports = class TestsBuilder extends Builder {
-  constructor ({ name = 'tsc', configPath = path.join(rootDir, 'tsconfig.json'), tempDir = mochaTsDir }) {
-    super(path.join(tempDir, 'semaphore'), name)
+export default class TestsBuilder extends Builder {
+  constructor ({ name = 'tsc', configPath = join(rootDir, 'tsconfig.json'), tempDir = mochaTsDir }) {
+    super(join(tempDir, 'semaphore'), name)
 
-    if (fs.existsSync(configPath) !== true) throw new Error(`Couldn't find a tsconfig file at ${configPath}`)
+    if (existsSync(configPath) !== true) throw new Error(`Couldn't find a tsconfig file at ${configPath}`)
 
     this.tempDir = tempDir
 
-    const readFileAndMangle = (path) => { // We need to change the include or file in the original file to only compile the tests
-      const fileStr = fs.readFileSync(path, 'utf8')
-      const config = JSON5.parse(fileStr)
-      if (config.file) delete config.file
+    this.tempPkgJsonPath = join(tempDir, 'package.json')
 
-      /* We need to add multiple globs here:
-         - All the declarations of the modules (just in case a test invoke one). ***for some reason they are not included by default***
-         - Our specific build typings
-         - The test files
-      */
-      config.include = ['node_modules/**/*.d.ts', 'build/typings/**/*', 'test/**/*', 'src/ts/**/*.spec.ts']
+    delete pkgJson.type
 
-      // no excluded files
-      config.exclude = undefined
+    writeFileSync(this.tempPkgJsonPath, JSON.stringify(pkgJson, undefined, 2))
 
-      // we don't need declaration files
-      config.compilerOptions.declaration = false
+    const tsConfig = json5.parse(readFileSync(configPath, 'utf8'))
 
-      // source mapping eases debuging
-      config.compilerOptions.sourceMap = true
+    tsConfig.file = undefined
 
-      // This prevents SyntaxError: Cannot use import statement outside a module
-      config.compilerOptions.module = 'commonjs'
+    // Exclude already transpiled files in src
+    tsConfig.exclude = ['src/ts/**/!(*.spec).ts']
 
-      return JSON.stringify(config)
-    }
-    const configFile = ts.readJsonConfigFile(configPath, readFileAndMangle)
+    // "noResolve": true
+    tsConfig.compilerOptions.noResolve = false
 
-    const parsedTsConfig = ts.parseJsonSourceFileConfigFileContent(configFile, ts.sys, path.dirname(configPath))
+    // we don't need declaration files
+    tsConfig.compilerOptions.declaration = false
 
-    const createProgram = ts.createSemanticDiagnosticsBuilderProgram
+    // we need to emit files
+    tsConfig.compilerOptions.noEmit = false
+
+    // source mapping eases debuging
+    tsConfig.compilerOptions.sourceMap = true
+
+    // This prevents SyntaxError: Cannot use import statement outside a module
+    // tsConfig.compilerOptions.module = 'commonjs'
+
+    // Removed typeroots (it causes issues)
+    tsConfig.compilerOptions.typeRoots = undefined
+
+    tsConfig.compilerOptions.outDir = isAbsolute(tempDir) ? relative(rootDir, tempDir) : tempDir
+
+    this.tempTsConfigPath = join(rootDir, '.tsconfig.json')
+
+    writeFileSync(this.tempTsConfigPath, JSON.stringify(tsConfig, undefined, 2))
+
+    const createProgram = createSemanticDiagnosticsBuilderProgram
 
     const reportDiagnostic = (diagnostic) => {
-      const filePath = path.relative(rootDir, diagnostic.file.fileName)
-      const tranpiledJsPath = `${path.join(tempDir, filePath).slice(0, -3)}.js`
+      const filePath = relative(rootDir, diagnostic.file.fileName)
+      const tranpiledJsPath = `${join(tempDir, filePath).slice(0, -3)}.js`
       const errorLine = diagnostic.file.text.slice(0, diagnostic.start).split(/\r\n|\r|\n/).length
-      if (fs.existsSync(tranpiledJsPath)) {
-        fs.writeFileSync(tranpiledJsPath, '', 'utf8')
+      if (existsSync(tranpiledJsPath)) {
+        writeFileSync(tranpiledJsPath, '', 'utf8')
       }
-      this.emit('error', `[Error ${diagnostic.code}]`, `${filePath}:${errorLine}`, ':', ts.flattenDiagnosticMessageText(diagnostic.messageText, formatHost.getNewLine()))
+      this.emit('error', `[Error ${diagnostic.code}]`, `${filePath}:${errorLine}`, ':', flattenDiagnosticMessageText(diagnostic.messageText, formatHost.getNewLine()))
     }
 
     const reportWatchStatusChanged = (diagnostic, newLine, options, errorCount) => {
@@ -81,17 +101,10 @@ module.exports = class TestsBuilder extends Builder {
 
     // Note that there is another overload for `createWatchCompilerHost` that takes
     // a set of root files.
-    this.host = ts.createWatchCompilerHost(
-      parsedTsConfig.fileNames,
-      {
-        ...parsedTsConfig.options,
-        rootDir,
-        outDir: this.tempDir,
-        noEmit: false,
-        noResolve: true,
-        sourceMap: true
-      },
-      ts.sys,
+    this.host = createWatchCompilerHost(
+      this.tempTsConfigPath,
+      {},
+      sys,
       createProgram,
       reportDiagnostic,
       reportWatchStatusChanged
@@ -102,12 +115,13 @@ module.exports = class TestsBuilder extends Builder {
     await super.start()
     // `createWatchProgram` creates an initial program, watches files, and updates
     // the program over time.
-    this.watcher = ts.createWatchProgram(this.host)
+    this.watcher = createWatchProgram(this.host)
     return await this.ready()
   }
 
   async close () {
     await super.close()
     this.watcher.close()
+    unlinkSync(this.tempTsConfigPath)
   }
 }

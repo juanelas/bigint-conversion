@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'fs'
+import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import ts from 'typescript'
 import { join, dirname } from 'path'
 import { sync } from 'rimraf'
@@ -29,7 +29,7 @@ const compilerOptions = {
 const host = createCompilerHost(compilerOptions)
 
 host.writeFile = (fileName, contents) => {
-  sys.createDirectory(dirname(fileName))
+  mkdirSync(dirname(fileName), { recursive: true })
   writeFileSync(fileName, contents)
 }
 
