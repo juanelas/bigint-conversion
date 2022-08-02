@@ -1,4 +1,4 @@
-# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
 name: Node.js CI
@@ -8,63 +8,92 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  workflow_dispatch:
 
 jobs:
   build:
-    name: multiplatform builds
-    runs-on: ${{ matrix.os }}
-
+    name: build and node tests
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+        node-version: [14, 16, 18]
     steps:
-    - if: matrix.os != 'ubuntu-latest' || matrix.node-version != '14.x'
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - if: matrix.os != 'ubuntu-latest' || matrix.node-version != '14.x'
-      name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - if: matrix.os != 'ubuntu-latest' || matrix.node-version != '14.x'
-      run: npm ci
-    
-    - if: matrix.os != 'ubuntu-latest' || matrix.node-version != '14.x'
-      run: npm run build --if-present
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-  current:
-    name: current LTS and publication (if set up)
+      - name: install
+        run: npm ci
+      
+      - name: lint
+        run: npm run lint
+      
+      - name: build
+        run: npm run build:js
+      
+      - name: docs
+        run: npm run docs
+      
+      # - name: browser tests
+      #   run: npm run test:browser
+      
+      - name: node tests
+        run: npm run test:node
+
+  new-version:
     needs: build
     runs-on: ubuntu-latest
-  
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      
+      - uses: EndBug/version-check@v1
+        id: check
 
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14.x
-    
-    - run: npm ci
-    
-    - run: npm run build --if-present
+      - name: check version changes
+        if: steps.check.outputs.changed == 'true'
+        run: 'echo "Version change found! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
 
-    - uses: EndBug/version-check@v1
-      id: check
-    
-    - if: steps.check.outputs.changed == 'true'
-      name: send report to coveralls.io
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-    
-    - if: steps.check.outputs.changed == 'true'
-      run: npm publish --access public
-      env:
+      - uses: actions/setup-node@v1
+        if: steps.check.outputs.changed == 'true'
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      
+      - name: install
+        if: steps.check.outputs.changed == 'true'
+        run: npm ci
+      
+      - name: lint
+        if: steps.check.outputs.changed == 'true'
+        run: npm run lint
+      
+      - name: build
+        if: steps.check.outputs.changed == 'true'
+        run: npm run build:js
+      
+      - name: docs
+        if: steps.check.outputs.changed == 'true'
+        run: npm run docs
+      
+      - name: browser tests
+        if: steps.check.outputs.changed == 'true'
+        run: npm run test:browser-headless
+      
+      - name: node tests and coverage
+        if: steps.check.outputs.changed == 'true'
+        run: npm run coverage
+      
+      - name: send report to coveralls.io
+        if: steps.check.outputs.changed == 'true'
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: publish to NPM
+        if: steps.check.outputs.changed == 'true'
+        run: npm publish
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
