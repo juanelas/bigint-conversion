@@ -89,9 +89,3 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: publish to NPM
-        if: steps.check.outputs.changed == 'true'
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
