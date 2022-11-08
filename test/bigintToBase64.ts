@@ -1,3 +1,5 @@
+import * as bc from '#pkg'
+
 describe('bigintToBase64', function () {
   const inputs = [
     {
@@ -36,19 +38,19 @@ describe('bigintToBase64', function () {
     if (input.bi >= 0) {
       describe(`bigintToBase64(${input.bi})`, function () {
         it(`should return ${input.base64}`, function () {
-          const ret = _pkg.bigintToBase64(input.bi, input.urlsafe, input.padding)
+          const ret = bc.bigintToBase64(input.bi, input.urlsafe, input.padding)
           chai.expect(ret).to.equal(input.base64)
         })
       })
       describe(`base64ToBigint(${input.base64})`, function () {
         it(`should return ${input.bi}`, function () {
-          const ret = _pkg.base64ToBigint(input.base64)
+          const ret = bc.base64ToBigint(input.base64)
           chai.expect(ret).to.equal(input.bi)
         })
       })
     } else {
       it('should throw RangeError', function () {
-        chai.expect(() => _pkg.bigintToHex(input.bi)).to.throw(RangeError)
+        chai.expect(() => bc.bigintToHex(input.bi)).to.throw(RangeError)
       })
     }
   }

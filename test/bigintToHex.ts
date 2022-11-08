@@ -1,3 +1,5 @@
+import * as bc from '#pkg'
+
 describe('bigintToHex', function () {
   const inputs = [
     {
@@ -27,13 +29,13 @@ describe('bigintToHex', function () {
       if (input.bi >= 0) {
         describe(`bigintToHex(${input.bi})`, function () {
           it(`should return ${input.hex}`, function () {
-            const ret = _pkg.bigintToHex(input.bi)
+            const ret = bc.bigintToHex(input.bi)
             chai.expect(ret).to.equal(input.hex)
           })
         })
       } else {
         it('should throw RangeError', function () {
-          chai.expect(() => _pkg.bigintToHex(input.bi)).to.throw(RangeError)
+          chai.expect(() => bc.bigintToHex(input.bi)).to.throw(RangeError)
         })
       }
     }

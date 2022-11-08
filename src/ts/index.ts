@@ -15,6 +15,32 @@ import * as b64 from '@juanelas/base64'
 export type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array | BigInt64Array | BigUint64Array
 
 /**
+ * Parses a hexadecimal string for correctness and returns it with or without '0x' prefix, and/or with the specified byte length
+ * @param a - the string with an hexadecimal number to be parsed
+ * @param prefix0x - set to true to prefix the output with '0x'
+ * @param byteLength - pad the output to have the desired byte length. Notice that the hex length is double the byte length.
+ *
+ * @returns
+ *
+ * @throws {@link RangeError} if input string does not hold an hexadecimal number
+ * @throws {@link RangeError} if requested byte length is less than the input byte length
+ */
+export function parseHex (a: string, prefix0x: boolean = false, byteLength?: number): string {
+  const hexMatch = a.match(/^(0x)?([\da-fA-F]+)$/)
+  if (hexMatch == null) {
+    throw new RangeError('input must be a hexadecimal string, e.g. \'0x124fe3a\' or \'0214f1b2\'')
+  }
+  let hex = hexMatch[2]
+  if (byteLength !== undefined) {
+    if (byteLength < hex.length / 2) {
+      throw new RangeError(`expected byte length ${byteLength} < input hex byte length ${Math.ceil(hex.length / 2)}`)
+    }
+    hex = hex.padStart(byteLength * 2, '0')
+  }
+  return (prefix0x) ? '0x' + hex : hex
+}
+
+/**
  * Converts an arbitrary-size non-negative bigint to an ArrayBuffer or a Buffer (default for Node.js)
  *
  * @param a
@@ -22,8 +48,7 @@ export type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array
  *
  * @returns an ArrayBuffer or a Buffer with a binary representation of the input bigint
  *
- * @throws {RangeError}
- * Thrown if a < 0.
+ * @throws {@link RangeError} if a < 0.
  */
 export function bigintToBuf (a: bigint, returnArrayBuffer: boolean = false): ArrayBuffer|Buffer {
   if (a < 0) throw RangeError('a should be a non-negative integer. Negative values are not supported')
@@ -51,12 +76,14 @@ export function bufToBigint (buf: ArrayBuffer|TypedArray|Buffer): bigint {
 /**
  * Converts a non-negative bigint to a hexadecimal string
  * @param a - a non negative bigint
+ * @param prefix0x - set to true to prefix the output with '0x'
+ * @param byteLength - pad the output to have the desired byte length. Notice that the hex length is double the byte length.
+ *
  * @returns hexadecimal representation of the input bigint
  *
- * @throws {RangeError}
- * Thrown if a < 0
+ * @throws {@link RangeError} if a < 0
  */
-export function bigintToHex (a: bigint): string {
+export function bigintToHex (a: bigint, prefix0x: boolean = false, byteLength?: number): string {
   if (a < 0) throw RangeError('a should be a non-negative integer. Negative values are not supported')
   return a.toString(16)
 }
@@ -67,9 +94,11 @@ export function bigintToHex (a: bigint): string {
  * @param hexStr
  *
  * @returns a bigint
+ *
+ * @throws {@link RangeError} if input string does not hold an hexadecimal number
  */
 export function hexToBigint (hexStr: string): bigint {
-  return BigInt('0x' + hexStr)
+  return BigInt(parseHex(hexStr, true))
 }
 
 /**
@@ -79,8 +108,7 @@ export function hexToBigint (hexStr: string): bigint {
  *
  * @returns a string text with utf-8 encoding
  *
- * @throws {RangeError}
- * Thrown if a < 0.
+ * @throws {@link RangeError} if a < 0.
  */
 export function bigintToText (a: bigint): string {
   if (a < 0) throw RangeError('a should be a non-negative integer. Negative values are not supported')
@@ -129,10 +157,12 @@ export function textToBuf (str: string, returnArrayBuffer: boolean = false): Arr
  * Returns the hexadecimal representation of a buffer.
  *
  * @param buf
+ * @param prefix0x - set to true to prefix the output with '0x'
+ * @param byteLength - pad the output to have the desired byte length. Notice that the hex length is double the byte length.
  *
  * @returns a string with a hexadecimal representation of the input buffer
  */
-export function bufToHex (buf: ArrayBuffer|TypedArray|Buffer): string {
+export function bufToHex (buf: ArrayBuffer|TypedArray|Buffer, prefix0x: boolean = false, byteLength?: number): string {
   if (IS_BROWSER) {
     let s = ''
     const h = '0123456789abcdef'
@@ -143,10 +173,10 @@ export function bufToHex (buf: ArrayBuffer|TypedArray|Buffer): string {
       s += h[v >> 4] + h[v & 15]
     })
 
-    return s
+    return parseHex(s, prefix0x, byteLength)
   } else {
     if (ArrayBuffer.isView(buf)) buf = new Uint8Array(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength))
-    return Buffer.from(buf).toString('hex')
+    return parseHex(Buffer.from(buf).toString('hex'), prefix0x, byteLength)
   }
 }
 
@@ -158,27 +188,18 @@ export function bufToHex (buf: ArrayBuffer|TypedArray|Buffer): string {
  *
  * @returns An ArrayBuffer or a Buffer
  *
- * @throws {RangeError}
- * Thrown if hexStr is undefined or not a hexadecimal.
+ * @throws {@link RangeError} if input string does not hold an hexadecimal number
  */
 export function hexToBuf (hexStr: string, returnArrayBuffer: boolean = false): ArrayBuffer|Buffer {
-  if (hexStr === undefined) {
-    throw RangeError('hexStr cannot undefined')
-  }
-  const hexMatch = hexStr.match(/^(0x)?([\da-fA-F]+)$/)
-  if (hexMatch == null) {
-    throw RangeError('hexStr must be a hexadecimal string, e.g. \'0x124fe3a\' or \'0214f1b2\'')
-  }
-  let hex = hexMatch[2]
-  hex = (hex.length % 2 === 0) ? hex : '0' + hex
+  let hex = parseHex(hexStr)
+  hex = parseHex(hexStr, false, Math.ceil(hex.length / 2)) // pad to have a length in bytes
   if (IS_BROWSER) {
     return Uint8Array.from(hex.match(/[\da-fA-F]{2}/g)!.map((h) => { // eslint-disable-line
       return parseInt(h, 16)
     })).buffer
   } else {
     const b = Buffer.from(hex, 'hex')
-    if (!returnArrayBuffer) return b
-    else return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)
+    return returnArrayBuffer ? b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength) : b
   }
 }
 

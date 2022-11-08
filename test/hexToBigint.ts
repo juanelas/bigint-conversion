@@ -1,3 +1,5 @@
+import * as bc from '#pkg'
+
 describe('hexToBigint', function () {
   const inputs = [
     {
@@ -18,7 +20,7 @@ describe('hexToBigint', function () {
     for (const input of inputs) {
       describe(`hexToBigint(${input.hex})`, function () {
         it(`should return ${input.bi}`, function () {
-          const ret = _pkg.hexToBigint(input.hex)
+          const ret = bc.hexToBigint(input.hex)
           chai.expect(ret).to.equal(input.bi)
         })
       })

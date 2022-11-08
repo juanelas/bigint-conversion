@@ -24,6 +24,7 @@ This module runs perfectly in node.js and browsers
 - [bufToText](API.md#buftotext)
 - [hexToBigint](API.md#hextobigint)
 - [hexToBuf](API.md#hextobuf)
+- [parseHex](API.md#parsehex)
 - [textToBigint](API.md#texttobigint)
 - [textToBuf](API.md#texttobuf)
 
@@ -37,7 +38,7 @@ A TypedArray object describes an array-like view of an underlying binary data bu
 
 #### Defined in
 
-[index.ts:15](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L15)
+[index.ts:15](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L15)
 
 ## Functions
 
@@ -61,7 +62,7 @@ a bigint
 
 #### Defined in
 
-[index.ts:204](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L204)
+[index.ts:225](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L225)
 
 ___
 
@@ -91,7 +92,7 @@ a base64 representation of the input bigint
 
 #### Defined in
 
-[index.ts:195](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L195)
+[index.ts:216](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L216)
 
 ___
 
@@ -103,7 +104,7 @@ Converts an arbitrary-size non-negative bigint to an ArrayBuffer or a Buffer (de
 
 **`Throws`**
 
-Thrown if a < 0.
+RangeError if a < 0.
 
 #### Parameters
 
@@ -120,25 +121,27 @@ an ArrayBuffer or a Buffer with a binary representation of the input bigint
 
 #### Defined in
 
-[index.ts:28](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L28)
+[index.ts:53](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L53)
 
 ___
 
 ### bigintToHex
 
-▸ **bigintToHex**(`a`): `string`
+▸ **bigintToHex**(`a`, `prefix0x?`, `byteLength?`): `string`
 
 Converts a non-negative bigint to a hexadecimal string
 
 **`Throws`**
 
-Thrown if a < 0
+RangeError if a < 0
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `bigint` | a non negative bigint |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `a` | `bigint` | `undefined` | a non negative bigint |
+| `prefix0x` | `boolean` | `false` | set to true to prefix the output with '0x' |
+| `byteLength?` | `number` | `undefined` | pad the output to have the desired byte length. Notice that the hex length is double the byte length. |
 
 #### Returns
 
@@ -148,7 +151,7 @@ hexadecimal representation of the input bigint
 
 #### Defined in
 
-[index.ts:59](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L59)
+[index.ts:86](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L86)
 
 ___
 
@@ -160,7 +163,7 @@ Converts a non-negative bigint representing a binary array of utf-8 encoded text
 
 **`Throws`**
 
-Thrown if a < 0.
+RangeError if a < 0.
 
 #### Parameters
 
@@ -176,7 +179,7 @@ a string text with utf-8 encoding
 
 #### Defined in
 
-[index.ts:85](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L85)
+[index.ts:113](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L113)
 
 ___
 
@@ -200,21 +203,23 @@ a bigint
 
 #### Defined in
 
-[index.ts:38](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L38)
+[index.ts:63](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L63)
 
 ___
 
 ### bufToHex
 
-▸ **bufToHex**(`buf`): `string`
+▸ **bufToHex**(`buf`, `prefix0x?`, `byteLength?`): `string`
 
 Returns the hexadecimal representation of a buffer.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `buf` | [`TypedArray`](API.md#typedarray) \| `ArrayBuffer` \| `Buffer` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `buf` | [`TypedArray`](API.md#typedarray) \| `ArrayBuffer` \| `Buffer` | `undefined` |  |
+| `prefix0x` | `boolean` | `false` | set to true to prefix the output with '0x' |
+| `byteLength?` | `number` | `undefined` | pad the output to have the desired byte length. Notice that the hex length is double the byte length. |
 
 #### Returns
 
@@ -224,7 +229,7 @@ a string with a hexadecimal representation of the input buffer
 
 #### Defined in
 
-[index.ts:135](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L135)
+[index.ts:165](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L165)
 
 ___
 
@@ -248,7 +253,7 @@ a string text with utf-8 encoding
 
 #### Defined in
 
-[index.ts:108](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L108)
+[index.ts:136](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L136)
 
 ___
 
@@ -257,6 +262,10 @@ ___
 ▸ **hexToBigint**(`hexStr`): `bigint`
 
 Converts a hexadecimal string to a bigint
+
+**`Throws`**
+
+RangeError if input string does not hold an hexadecimal number
 
 #### Parameters
 
@@ -272,7 +281,7 @@ a bigint
 
 #### Defined in
 
-[index.ts:71](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L71)
+[index.ts:100](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L100)
 
 ___
 
@@ -284,7 +293,7 @@ Converts a hexadecimal string to a buffer
 
 **`Throws`**
 
-Thrown if hexStr is undefined or not a hexadecimal.
+RangeError if input string does not hold an hexadecimal number
 
 #### Parameters
 
@@ -301,7 +310,39 @@ An ArrayBuffer or a Buffer
 
 #### Defined in
 
-[index.ts:164](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L164)
+[index.ts:193](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L193)
+
+___
+
+### parseHex
+
+▸ **parseHex**(`a`, `prefix0x?`, `byteLength?`): `string`
+
+Parses a hexadecimal string for correctness and returns it with or without '0x' prefix, and/or with the specified byte length
+
+**`Throws`**
+
+RangeError if input string does not hold an hexadecimal number
+
+**`Throws`**
+
+RangeError if requested byte length is less than the input byte length
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `a` | `string` | `undefined` | the string with an hexadecimal number to be parsed |
+| `prefix0x` | `boolean` | `false` | set to true to prefix the output with '0x' |
+| `byteLength?` | `number` | `undefined` | pad the output to have the desired byte length. Notice that the hex length is double the byte length. |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[index.ts:28](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L28)
 
 ___
 
@@ -325,7 +366,7 @@ a bigint representing a binary array of the input utf-8 encoded text
 
 #### Defined in
 
-[index.ts:97](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L97)
+[index.ts:125](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L125)
 
 ___
 
@@ -350,4 +391,4 @@ an ArrayBuffer or a Buffer containing the utf-8 encoded text
 
 #### Defined in
 
-[index.ts:121](https://github.com/juanelas/bigint-conversion/blob/108e773/src/ts/index.ts#L121)
+[index.ts:149](https://github.com/juanelas/bigint-conversion/blob/60e30a0/src/ts/index.ts#L149)

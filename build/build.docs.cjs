@@ -3,7 +3,9 @@
 const fs = require('fs')
 const TypeDoc = require('typedoc')
 const path = require('path')
+const json5 = require('json5')
 const pkgJson = require('../package.json')
+const rimraf = require('rimraf')
 
 const rootDir = path.join(__dirname, '..')
 
@@ -14,8 +16,17 @@ function camelise (str) {
     })
 }
 
+const tsConfigPath = path.join(rootDir, 'tsconfig.json')
+const tempTsConfigPath = path.join(rootDir, '.tsconfig.json')
+
 async function typedoc () {
   const app = new TypeDoc.Application()
+
+  // prepare tsconfig
+  const tsConfig = json5.parse(fs.readFileSync(tsConfigPath, 'utf8'))
+  tsConfig.include = ['src/ts/**/*', 'build/typings/**/*.d.ts']
+  tsConfig.exclude = ['src/**/*.spec.ts']
+  fs.writeFileSync(tempTsConfigPath, JSON.stringify(tsConfig, undefined, 2))
 
   // If you want TypeDoc to load tsconfig.json / typedoc.json files
   app.options.addReader(new TypeDoc.TSConfigReader())
@@ -23,6 +34,7 @@ async function typedoc () {
 
   app.bootstrap({
     // typedoc options here
+    tsconfig: tempTsConfigPath,
     entryPoints: ['src/ts/index.ts'],
     plugin: ['typedoc-plugin-markdown'],
     includeVersion: true,
@@ -81,11 +93,12 @@ let iifeBundle, esmBundle, umdBundle, workflowBadget, coverallsBadge
 if (repoProvider) {
   switch (repoProvider) {
     case 'github':
-      iifeBundle = `[IIFE bundle](https://raw.githubusercontent.com/${repoUsername}/${repoName}/master/${iifeBundlePath})`
-      esmBundle = `[ESM bundle](https://raw.githubusercontent.com/${repoUsername}/${repoName}/master/${esmBundlePath})`
-      umdBundle = `[UMD bundle](https://raw.githubusercontent.com/${repoUsername}/${repoName}/master/${umdBundlePath})`
-      workflowBadget = `[![Node.js CI](https://github.com/${repoUsername}/${repoName}/workflows/build/badge.svg)](https://github.com/${repoUsername}/${repoName}/actions?query=workflow%3A%22build%22)`
-      coverallsBadge = `[![Coverage Status](https://coveralls.io/repos/github/${repoUsername}/${repoName}/badge.svg?branch=master)](https://coveralls.io/github/${repoUsername}/${repoName}?branch=master)`
+      iifeBundle = `[IIFE bundle](https://raw.githubusercontent.com/${repoUsername}/${repoName}/main/${iifeBundlePath})`
+      esmBundle = `[ESM bundle](https://raw.githubusercontent.com/${repoUsername}/${repoName}/main/${esmBundlePath})`
+      umdBundle = `[UMD bundle](https://raw.githubusercontent.com/${repoUsername}/${repoName}/main/${umdBundlePath})`
+      workflowBadget = `[![Node.js CI](https://github.com/${repoUsername}/${repoName}/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/${repoUsername}/${repoName}/actions/workflows/build-and-test.yml)`
+      coverallsBadge = ''
+      // coverallsBadge = `[![Coverage Status](https://coveralls.io/repos/github/${repoUsername}/${repoName}/badge.svg?branch=main)](https://coveralls.io/github/${repoUsername}/${repoName}?branch=main)`
       break
 
     case 'gitlab':
@@ -108,12 +121,14 @@ let template = fs.readFileSync(templateFile, { encoding: 'UTF-8' })
   .replace(/\{\{UMD_BUNDLE\}\}/g, umdBundle || 'UMD bundle')
 
 if (repoProvider && repoProvider === 'github') {
-  template = template.replace(/\{\{GITHUB_ACTIONS_BADGES\}\}/g, workflowBadget + '\n' + coverallsBadge)
+  template = template.replace(/\{\{GITHUB_ACTIONS_BADGES\}\}\n/gs, (workflowBadget ?? '') + (coverallsBadge ? '\n' + coverallsBadge : '') + '\n')
 } else {
-  template = template.replace(/\{\{GITHUB_ACTIONS_BADGES\}\}/g, '')
+  template = template.replace(/\{\{GITHUB_ACTIONS_BADGES\}\}\n/gs, '')
 }
 
 const readmeFile = path.join(rootDir, 'README.md')
 fs.writeFileSync(readmeFile, template)
 
 typedoc()
+
+rimraf.sync(tempTsConfigPath)

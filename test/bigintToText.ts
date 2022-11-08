@@ -1,3 +1,5 @@
+import * as bc from '#pkg'
+
 describe('bigintToText', function () {
   const inputs = [
     'Hello World',
@@ -13,7 +15,7 @@ describe('bigintToText', function () {
     for (const input of inputs) {
       describe(`bigintToText((textToBigint(${input})))`, function () {
         it(`should return ${input}`, function () {
-          const ret = _pkg.bigintToText(_pkg.textToBigint(input))
+          const ret = bc.bigintToText(bc.textToBigint(input))
           chai.expect(ret).to.equal(input)
         })
       })
@@ -22,7 +24,7 @@ describe('bigintToText', function () {
 
   describe('bigintToText(-6n)', function () {
     it('should throw RangeError', function () {
-      chai.expect(() => _pkg.bigintToText(BigInt('-6'))).to.throw(RangeError)
+      chai.expect(() => bc.bigintToText(BigInt('-6'))).to.throw(RangeError)
     })
   })
 })

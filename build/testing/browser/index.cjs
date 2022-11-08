@@ -21,19 +21,14 @@ const browserTests = async (
   const browser = await puppeteer.launch(puppeteerOptions)
   const page = (await browser.pages())[0]
   page.on('console', function (message) {
-    let ignore = message.type() === 'warning' && !logWarnings
-    if (message.type() === 'error' && message.location()) {
-      if (message.location().url.includes('favicon.ico')) {
-        ignore = true
-      }
-    }
+    const ignore = message.type() === 'warning' && !logWarnings
     if (ignore) return
 
-    let text = (message.args().length > 0) ? message.args()[0]._remoteObject.value : message.text()
+    let text = (message.args().length > 0) ? message.args()[0].remoteObject().value : message.text()
     const args = []
     if (message.args() !== undefined && message.args().length > 1) {
       for (let i = 1; i < message.args().length; i++) {
-        args.push(message.args()[i]._remoteObject.value)
+        args.push(message.args()[i].remoteObject().value)
       }
     }
 

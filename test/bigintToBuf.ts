@@ -1,3 +1,5 @@
+import * as bc from '#pkg'
+
 describe('bigintToBuf', function () {
   const inputs = [
     BigInt(0),
@@ -11,25 +13,25 @@ describe('bigintToBuf', function () {
     describe(`bufToBigint(bigintToBuf(${input}))`, function () {
       if (input < 0) {
         it('should throw RangeError', function () {
-          chai.expect(() => _pkg.bufToBigint(_pkg.bigintToBuf(input))).to.throw(RangeError)
+          chai.expect(() => bc.bufToBigint(bc.bigintToBuf(input))).to.throw(RangeError)
         })
         it('should throw RangeError', function () {
-          chai.expect(() => _pkg.bufToBigint(_pkg.bigintToBuf(input, true))).to.throw(RangeError)
+          chai.expect(() => bc.bufToBigint(bc.bigintToBuf(input, true))).to.throw(RangeError)
         })
         it('should throw RangeError', function () {
-          chai.expect(() => _pkg.bufToBigint(_pkg.bigintToBuf(input, false))).to.throw(RangeError)
+          chai.expect(() => bc.bufToBigint(bc.bigintToBuf(input, false))).to.throw(RangeError)
         })
       } else {
         it(`should return ${input}`, function () {
-          const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input))
+          const ret = bc.bufToBigint(bc.bigintToBuf(input))
           chai.expect(ret).to.equal(input)
         })
         it(`should return ${input}`, function () {
-          const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, true))
+          const ret = bc.bufToBigint(bc.bigintToBuf(input, true))
           chai.expect(ret).to.equal(input)
         })
         it(`should return ${input}`, function () {
-          const ret = _pkg.bufToBigint(_pkg.bigintToBuf(input, false))
+          const ret = bc.bufToBigint(bc.bigintToBuf(input, false))
           chai.expect(ret).to.equal(input)
         })
       }

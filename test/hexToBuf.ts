@@ -1,3 +1,5 @@
+import * as bc from '#pkg'
+
 describe('hexToBuf', function () {
   const tests = [
     {
@@ -15,35 +17,35 @@ describe('hexToBuf', function () {
     {
       buf: new Uint8Array([1, 1]),
       hex: '0x101'
+    },
+    {
+      buf: new Uint8Array([1, 1, 1]),
+      hex: '10101'
     }
   ]
 
   describe('hexToBuf and bufToHex', function () {
     for (const test of tests) {
-      let expected = (test.hex.startsWith('0x')) ? test.hex.substr(2) : test.hex
-      if (expected.length % 2 !== 0) expected = '0' + expected
       describe(`bufToHex([${(new Uint8Array(test.buf)).toString()}])`, function () {
+        const byteLength = test.buf.byteLength
+        const expected = bc.parseHex(test.hex, false, byteLength)
         it(`should return ${expected}`, function () {
-          const ret = _pkg.bufToHex(test.buf)
+          const ret = bc.bufToHex(test.buf)
           chai.expect(ret).to.equal(expected)
         })
       })
       describe(`bufToHex(hexToBuf(${test.hex}))`, function () {
+        const byteLength = test.buf.byteLength
+        const expected = bc.parseHex(test.hex, false, byteLength)
         it(`should return ${expected}`, function () {
-          const ret = _pkg.bufToHex(_pkg.hexToBuf(test.hex))
+          const buf = bc.hexToBuf(test.hex)
+          const ret = bc.bufToHex(buf)
           chai.expect(ret).to.equal(expected)
         })
       })
       describe('hexToBuf(\'12412fgt3\')', function () {
         it('should throw RangeError', function () {
-          chai.expect(() => _pkg.hexToBuf('12412fgt3')).to.throw(RangeError)
-        })
-      })
-      describe('hexToBuf()', function () {
-        it('should throw RangeError', function () {
-          // eslint-disable-next-line
-          // @ts-ignore
-          chai.expect(() => _pkg.hexToBuf()).to.throw(RangeError)
+          chai.expect(() => bc.hexToBuf('12412fgt3')).to.throw(RangeError)
         })
       })
     }

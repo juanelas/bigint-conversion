@@ -1,3 +1,5 @@
+import * as bc from '#pkg'
+
 describe('textToBuf', function () {
   const inputs = [
     'Hello World',
@@ -12,12 +14,12 @@ describe('textToBuf', function () {
   let returnArrayBuffer = false
 
   for (const input of inputs) {
-    describe(`bufToText(textToBuf(${input.substr(8)}...))`, function () {
-      it(`should return ${input.substr(8)}...`, function () {
+    describe(`bufToText(textToBuf(${input.substring(0, 8)}...))`, function () {
+      it(`should return ${input.substring(0, 8)}...`, function () {
       /* eslint-disable no-unneeded-ternary */
         returnArrayBuffer = returnArrayBuffer ? false : true
         /* eslint-enable no-unneeded-ternary */
-        const ret = _pkg.bufToText(_pkg.textToBuf(input, returnArrayBuffer))
+        const ret = bc.bufToText(bc.textToBuf(input, returnArrayBuffer))
         chai.expect(ret).to.equal(input)
       })
     })

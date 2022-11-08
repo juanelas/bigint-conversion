@@ -9,6 +9,7 @@
     "checkJs": true,                          /* Report errors in .js files. */
     // "jsx": "preserve",                     /* Specify JSX code generation: 'react', 'react-jsx', 'react-jsxdev', 'preserve' or 'react-native'. */
     "strict": true,                           /* Enable all strict type-checking options. */
+    "removeComments": true,
 
     /* Additional Checks */
     // "noUnusedLocals": true,                /* Report errors on unused locals. */
@@ -27,7 +28,7 @@
     // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true,               /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
-    "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
+    // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
 
     /* Experimental Options */
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
@@ -36,7 +37,10 @@
     /* Advanced Options */
     "skipLibCheck": true,                     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true,  /* Disallow inconsistently-cased references to the same file. */
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "#pkg": ["."]
+    }
   },
-  "include": ["src/ts/**/*", "test/**/*", "build/typings/**/*.d.ts"]
+  "include": ["src/ts/**/*", "build/typings/**/*.d.ts", "test/**/*", "test-vectors/**/*.ts", "benchmark/**/*.ts"]
 }
