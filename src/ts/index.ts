@@ -50,7 +50,7 @@ export function parseHex (a: string, prefix0x: boolean = false, byteLength?: num
  *
  * @throws {@link RangeError} if a < 0.
  */
-export function bigintToBuf (a: bigint, returnArrayBuffer: boolean = false): ArrayBuffer|Buffer {
+export function bigintToBuf (a: bigint, returnArrayBuffer: boolean = false): ArrayBuffer | Buffer {
   if (a < 0) throw RangeError('a should be a non-negative integer. Negative values are not supported')
   return hexToBuf(bigintToHex(a), returnArrayBuffer)
 }
@@ -60,13 +60,13 @@ export function bigintToBuf (a: bigint, returnArrayBuffer: boolean = false): Arr
  * @param buf
  * @returns a bigint
  */
-export function bufToBigint (buf: ArrayBuffer|TypedArray|Buffer): bigint {
+export function bufToBigint (buf: ArrayBuffer | TypedArray | Buffer): bigint {
   let bits = 8n
   if (ArrayBuffer.isView(buf)) bits = BigInt(buf.BYTES_PER_ELEMENT * 8)
   else buf = new Uint8Array(buf)
 
   let ret = 0n
-  for (const i of (buf as TypedArray|Buffer).values()) {
+  for (const i of (buf as TypedArray | Buffer).values()) {
     const bi = BigInt(i)
     ret = (ret << bits) + bi
   }
@@ -133,7 +133,7 @@ export function textToBigint (text: string): bigint {
  *
  * @returns a string text with utf-8 encoding
  */
-export function bufToText (buf: ArrayBuffer|TypedArray|Buffer): string {
+export function bufToText (buf: ArrayBuffer | TypedArray | Buffer): string {
   if (IS_BROWSER) return new TextDecoder().decode(new Uint8Array(buf))
   else return Buffer.from(buf).toString()
 }
@@ -146,7 +146,7 @@ export function bufToText (buf: ArrayBuffer|TypedArray|Buffer): string {
  *
  * @returns an ArrayBuffer or a Buffer containing the utf-8 encoded text
  */
-export function textToBuf (str: string, returnArrayBuffer: boolean = false): ArrayBuffer|Buffer {
+export function textToBuf (str: string, returnArrayBuffer: boolean = false): ArrayBuffer | Buffer {
   if (!IS_BROWSER && !returnArrayBuffer) {
     return Buffer.from(new TextEncoder().encode(str).buffer)
   }
@@ -162,7 +162,7 @@ export function textToBuf (str: string, returnArrayBuffer: boolean = false): Arr
  *
  * @returns a string with a hexadecimal representation of the input buffer
  */
-export function bufToHex (buf: ArrayBuffer|TypedArray|Buffer, prefix0x: boolean = false, byteLength?: number): string {
+export function bufToHex (buf: ArrayBuffer | TypedArray | Buffer, prefix0x: boolean = false, byteLength?: number): string {
   if (IS_BROWSER) {
     let s = ''
     const h = '0123456789abcdef'
@@ -190,7 +190,7 @@ export function bufToHex (buf: ArrayBuffer|TypedArray|Buffer, prefix0x: boolean 
  *
  * @throws {@link RangeError} if input string does not hold an hexadecimal number
  */
-export function hexToBuf (hexStr: string, returnArrayBuffer: boolean = false): ArrayBuffer|Buffer {
+export function hexToBuf (hexStr: string, returnArrayBuffer: boolean = false): ArrayBuffer | Buffer {
   let hex = parseHex(hexStr)
   hex = parseHex(hexStr, false, Math.ceil(hex.length / 2)) // pad to have a length in bytes
   if (IS_BROWSER) {

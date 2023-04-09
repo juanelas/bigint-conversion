@@ -38,7 +38,7 @@ A TypedArray object describes an array-like view of an underlying binary data bu
 
 #### Defined in
 
-[index.ts:15](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L15)
+[index.ts:15](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L15)
 
 ## Functions
 
@@ -62,7 +62,7 @@ a bigint
 
 #### Defined in
 
-[index.ts:225](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L225)
+[index.ts:225](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L225)
 
 ___
 
@@ -92,7 +92,7 @@ a base64 representation of the input bigint
 
 #### Defined in
 
-[index.ts:216](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L216)
+[index.ts:216](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L216)
 
 ___
 
@@ -121,7 +121,7 @@ an ArrayBuffer or a Buffer with a binary representation of the input bigint
 
 #### Defined in
 
-[index.ts:53](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L53)
+[index.ts:53](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L53)
 
 ___
 
@@ -151,7 +151,7 @@ hexadecimal representation of the input bigint
 
 #### Defined in
 
-[index.ts:86](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L86)
+[index.ts:86](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L86)
 
 ___
 
@@ -179,7 +179,7 @@ a string text with utf-8 encoding
 
 #### Defined in
 
-[index.ts:113](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L113)
+[index.ts:113](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L113)
 
 ___
 
@@ -203,7 +203,7 @@ a bigint
 
 #### Defined in
 
-[index.ts:63](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L63)
+[index.ts:63](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L63)
 
 ___
 
@@ -229,7 +229,7 @@ a string with a hexadecimal representation of the input buffer
 
 #### Defined in
 
-[index.ts:165](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L165)
+[index.ts:165](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L165)
 
 ___
 
@@ -253,7 +253,7 @@ a string text with utf-8 encoding
 
 #### Defined in
 
-[index.ts:136](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L136)
+[index.ts:136](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L136)
 
 ___
 
@@ -281,7 +281,7 @@ a bigint
 
 #### Defined in
 
-[index.ts:100](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L100)
+[index.ts:100](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L100)
 
 ___
 
@@ -310,7 +310,7 @@ An ArrayBuffer or a Buffer
 
 #### Defined in
 
-[index.ts:193](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L193)
+[index.ts:193](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L193)
 
 ___
 
@@ -342,7 +342,7 @@ RangeError if requested byte length is less than the input byte length
 
 #### Defined in
 
-[index.ts:28](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L28)
+[index.ts:28](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L28)
 
 ___
 
@@ -366,7 +366,7 @@ a bigint representing a binary array of the input utf-8 encoded text
 
 #### Defined in
 
-[index.ts:125](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L125)
+[index.ts:125](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L125)
 
 ___
 
@@ -391,4 +391,4 @@ an ArrayBuffer or a Buffer containing the utf-8 encoded text
 
 #### Defined in
 
-[index.ts:149](https://github.com/juanelas/bigint-conversion/blob/0e826f4/src/ts/index.ts#L149)
+[index.ts:149](https://github.com/juanelas/bigint-conversion/blob/a40c326/src/ts/index.ts#L149)

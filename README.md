@@ -2,6 +2,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Node.js CI](https://github.com/juanelas/bigint-conversion/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/juanelas/bigint-conversion/actions/workflows/build-and-test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/juanelas/bigint-conversion/badge.svg?branch=main)](https://coveralls.io/github/juanelas/bigint-conversion?branch=main)
 
 # bigint-conversion
 
