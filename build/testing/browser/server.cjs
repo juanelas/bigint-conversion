@@ -12,6 +12,7 @@ const replace = require('@rollup/plugin-replace')
 const typescriptPlugin = require('@rollup/plugin-typescript')
 const commonjs = require('@rollup/plugin-commonjs')
 const json = require('@rollup/plugin-json')
+const multi = require('@rollup/plugin-multi-entry')
 const runScript = require('../../run-script.cjs')
 
 const rootDir = path.join(__dirname, '..', '..', '..')
@@ -48,7 +49,8 @@ const indexHtml = `<!DOCTYPE html>
 
 const tsBundleOptions = {
   tsconfig: path.join(rootDir, 'tsconfig.json'),
-  outDir: undefined // ignore outDir in tsconfig.json
+  outDir: undefined, // ignore outDir in tsconfig.json
+  sourceMap: false
   // include: ['build/typings/is-browser.d.ts']
 }
 
@@ -57,29 +59,26 @@ async function buildTests (testFiles) {
   const inputOptions = {
     input: testFiles,
     plugins: [
-      json(),
-      replace({
-        '#pkg': `/${name}.esm.js`,
-        delimiters: ['', ''],
-        preventAssignment: true
-      }),
+      multi(),
       replace({
         IS_BROWSER: true,
         _MODULE_TYPE: "'ESM'",
         preventAssignment: true
       }),
       typescriptPlugin(tsBundleOptions),
-      resolve({
-        browser: true,
-        exportConditions: ['browser', 'default'],
-        mainFields: ['browser', 'module', 'main']
-      }),
-      commonjs()
+      commonjs({ extensions: ['.js', '.cjs', '.jsx', '.cjsx'] }),
+      json(),
+      resolve({ browser: true }),
+      replace({
+        '#pkg': `/${name}.esm.js`,
+        delimiters: ['', ''],
+        preventAssignment: true
+      })
     ],
     external: [`/${name}.esm.js`]
   }
   const bundle = await rollup.rollup(inputOptions)
-  const { output } = await bundle.generate({ format: 'esm' })
+  const { output } = await bundle.generate({ format: 'es' })
   await bundle.close()
   let bundledCode = output[0].code
   const replacements = _getEnvVarsReplacements(bundledCode)

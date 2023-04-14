@@ -1,7 +1,7 @@
 const path = require('path')
 
 const puppeteer = require('puppeteer')
-const minimatch = require('minimatch')
+const minimatch = require('minimatch').minimatch
 const glob = require('glob')
 const rootDir = path.join(__dirname, '../../..')
 const pkgJson = require(path.join(rootDir, 'package.json'))
@@ -79,7 +79,7 @@ const browserTests = async (
 
 function processedTestFiles (testFilesStr) {
   if (testFilesStr === undefined) {
-    testFilesStr = [path.join(pkgJson.directories.test, '**/*.ts'), path.join(pkgJson.directories.src, '**/*.spec.ts')]
+    testFilesStr = [pkgJson.directories.test + '/**/*.ts', pkgJson.directories.src + '/**/*.spec.ts']
   } else {
     // Let us first remove surrounding quotes in string (it gives issues in windows)
     testFilesStr = testFilesStr.replace(/^['"]/, '').replace(/['"]$/, '')
