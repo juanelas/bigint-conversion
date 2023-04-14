@@ -1,6 +1,6 @@
 {
   "name": "bigint-conversion",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Convert to/from BigInt from/to Buffer, ArrayBuffer, hex string, utf8-encoded text string.",
   "keywords": [
     "BigInt",
