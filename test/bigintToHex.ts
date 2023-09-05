@@ -39,5 +39,26 @@ describe('bigintToHex', function () {
         })
       }
     }
+    it("bigintToHex(1214371n, undefined, 4) should return '001287a3'", function () {
+      const ret = bc.bigintToHex(1214371n, undefined, 4)
+      chai.expect(ret).to.equal('001287a3')
+    })
+    it("bigintToHex(1214371n, true) should return '0x1287a3'", function () {
+      const ret = bc.bigintToHex(1214371n, true)
+      chai.expect(ret).to.equal('0x1287a3')
+    })
+    it("bigintToHex(1214371n, true, 5) should return '0x00001287a3'", function () {
+      const ret = bc.bigintToHex(1214371n, true, 5)
+      chai.expect(ret).to.equal('0x00001287a3')
+    })
+    it('bigintToHex(hexToBigint(\'1287542fe21\'), true, 4) should throw error', function () {
+      chai.expect(() => {
+        bc.bigintToHex(bc.hexToBigint('1287542fe21'), true, 4)
+      }).to.throw(RangeError)
+    })
+    it("bigintToHex(1132n, true) should return '0x46c'", function () {
+      const ret = bc.bigintToHex(1132n, true)
+      chai.expect(ret).to.equal('0x46c')
+    })
   })
 })

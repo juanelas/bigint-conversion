@@ -35,7 +35,7 @@ function bufToBigint(buf) {
 function bigintToHex(a, prefix0x = false, byteLength) {
     if (a < 0)
         throw RangeError('a should be a non-negative integer. Negative values are not supported');
-    return a.toString(16);
+    return parseHex(a.toString(16), prefix0x, byteLength);
 }
 function hexToBigint(hexStr) {
     return BigInt(parseHex(hexStr, true));

@@ -85,7 +85,7 @@ export function bufToBigint (buf: ArrayBuffer | TypedArray | Buffer): bigint {
  */
 export function bigintToHex (a: bigint, prefix0x: boolean = false, byteLength?: number): string {
   if (a < 0) throw RangeError('a should be a non-negative integer. Negative values are not supported')
-  return a.toString(16)
+  return parseHex(a.toString(16), prefix0x, byteLength)
 }
 
 /**
