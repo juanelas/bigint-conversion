@@ -5,6 +5,7 @@ build
 test
 __tests__
 **/*.spec.ts
+**/*.test.ts
 test-vectors
 
 # Logs
@@ -34,8 +35,8 @@ coverage
 # tsconfig
 tsconfig.json
 
-# SRC docs
-src/docs
+# SRC
+src
 
 # Environment files
 *.env

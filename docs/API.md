@@ -36,10 +36,6 @@ This module runs perfectly in node.js and browsers
 
 A TypedArray object describes an array-like view of an underlying binary data buffer.
 
-#### Defined in
-
-[index.ts:15](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L15)
-
 ## Functions
 
 ### base64ToBigint
@@ -60,10 +56,6 @@ Converts a base64 string to bigint.
 
 a bigint
 
-#### Defined in
-
-[index.ts:225](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L225)
-
 ___
 
 ### bigintToBase64
@@ -71,10 +63,6 @@ ___
 ▸ **bigintToBase64**(`a`, `urlsafe?`, `padding?`): `string`
 
 Converts an arbitrary-size non-negative bigint to a base64 string
-
-**`Throws`**
-
-Thrown if a < 0
 
 #### Parameters
 
@@ -90,9 +78,9 @@ Thrown if a < 0
 
 a base64 representation of the input bigint
 
-#### Defined in
+**`Throws`**
 
-[index.ts:216](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L216)
+Thrown if a < 0
 
 ___
 
@@ -101,10 +89,6 @@ ___
 ▸ **bigintToBuf**(`a`, `returnArrayBuffer?`): `ArrayBuffer` \| `Buffer`
 
 Converts an arbitrary-size non-negative bigint to an ArrayBuffer or a Buffer (default for Node.js)
-
-**`Throws`**
-
-RangeError if a < 0.
 
 #### Parameters
 
@@ -119,9 +103,9 @@ RangeError if a < 0.
 
 an ArrayBuffer or a Buffer with a binary representation of the input bigint
 
-#### Defined in
+**`Throws`**
 
-[index.ts:53](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L53)
+RangeError if a < 0.
 
 ___
 
@@ -130,10 +114,6 @@ ___
 ▸ **bigintToHex**(`a`, `prefix0x?`, `byteLength?`): `string`
 
 Converts a non-negative bigint to a hexadecimal string
-
-**`Throws`**
-
-RangeError if a < 0
 
 #### Parameters
 
@@ -149,9 +129,9 @@ RangeError if a < 0
 
 hexadecimal representation of the input bigint
 
-#### Defined in
+**`Throws`**
 
-[index.ts:86](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L86)
+RangeError if a < 0
 
 ___
 
@@ -160,10 +140,6 @@ ___
 ▸ **bigintToText**(`a`): `string`
 
 Converts a non-negative bigint representing a binary array of utf-8 encoded text to a string of utf-8 text
-
-**`Throws`**
-
-RangeError if a < 0.
 
 #### Parameters
 
@@ -177,9 +153,9 @@ RangeError if a < 0.
 
 a string text with utf-8 encoding
 
-#### Defined in
+**`Throws`**
 
-[index.ts:113](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L113)
+RangeError if a < 0.
 
 ___
 
@@ -200,10 +176,6 @@ Converts an ArrayBuffer, TypedArray or Buffer (node.js) to a bigint
 `bigint`
 
 a bigint
-
-#### Defined in
-
-[index.ts:63](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L63)
 
 ___
 
@@ -227,10 +199,6 @@ Returns the hexadecimal representation of a buffer.
 
 a string with a hexadecimal representation of the input buffer
 
-#### Defined in
-
-[index.ts:165](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L165)
-
 ___
 
 ### bufToText
@@ -251,10 +219,6 @@ Converts an ArrayBuffer, TypedArray or Buffer (in Node.js) containing utf-8 enco
 
 a string text with utf-8 encoding
 
-#### Defined in
-
-[index.ts:136](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L136)
-
 ___
 
 ### hexToBigint
@@ -262,10 +226,6 @@ ___
 ▸ **hexToBigint**(`hexStr`): `bigint`
 
 Converts a hexadecimal string to a bigint
-
-**`Throws`**
-
-RangeError if input string does not hold an hexadecimal number
 
 #### Parameters
 
@@ -279,9 +239,9 @@ RangeError if input string does not hold an hexadecimal number
 
 a bigint
 
-#### Defined in
+**`Throws`**
 
-[index.ts:100](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L100)
+RangeError if input string does not hold an hexadecimal number
 
 ___
 
@@ -290,10 +250,6 @@ ___
 ▸ **hexToBuf**(`hexStr`, `returnArrayBuffer?`): `ArrayBuffer` \| `Buffer`
 
 Converts a hexadecimal string to a buffer
-
-**`Throws`**
-
-RangeError if input string does not hold an hexadecimal number
 
 #### Parameters
 
@@ -308,9 +264,9 @@ RangeError if input string does not hold an hexadecimal number
 
 An ArrayBuffer or a Buffer
 
-#### Defined in
+**`Throws`**
 
-[index.ts:193](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L193)
+RangeError if input string does not hold an hexadecimal number
 
 ___
 
@@ -319,14 +275,6 @@ ___
 ▸ **parseHex**(`a`, `prefix0x?`, `byteLength?`): `string`
 
 Parses a hexadecimal string for correctness and returns it with or without '0x' prefix, and/or with the specified byte length
-
-**`Throws`**
-
-RangeError if input string does not hold an hexadecimal number
-
-**`Throws`**
-
-RangeError if requested byte length is less than the input byte length
 
 #### Parameters
 
@@ -340,9 +288,13 @@ RangeError if requested byte length is less than the input byte length
 
 `string`
 
-#### Defined in
+**`Throws`**
 
-[index.ts:28](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L28)
+RangeError if input string does not hold an hexadecimal number
+
+**`Throws`**
+
+RangeError if requested byte length is less than the input byte length
 
 ___
 
@@ -364,10 +316,6 @@ Converts a utf-8 string to a bigint (from its binary representaion)
 
 a bigint representing a binary array of the input utf-8 encoded text
 
-#### Defined in
-
-[index.ts:125](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L125)
-
 ___
 
 ### textToBuf
@@ -388,7 +336,3 @@ Converts a string of utf-8 encoded text to an ArrayBuffer or a Buffer (default i
 `ArrayBuffer` \| `Buffer`
 
 an ArrayBuffer or a Buffer containing the utf-8 encoded text
-
-#### Defined in
-
-[index.ts:149](https://github.com/juanelas/bigint-conversion/blob/1e2e1f5/src/ts/index.ts#L149)

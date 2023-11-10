@@ -20,51 +20,62 @@
     "url": "https://github.com/juanelas"
   },
   "repository": "github:juanelas/bigint-conversion",
-  "type": "module",
-  "main": "./dist/index.node.cjs",
-  "browser": "./dist/index.browser.esm.js",
+  "main": "./dist/cjs/index.node.js",
+  "browser": "./dist/esm/index.browser.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "node": {
-        "module": {
-          "types": "./dist/index.d.ts",
-          "default": "./dist/index.node.esm.js"
-        },
         "import": {
           "types": "./dist/index.d.ts",
-          "default": "./dist/index.node.esm.js"
+          "default": "./dist/esm/index.node.js"
         },
         "require": {
           "types": "./dist/index.d.ts",
-          "default": "./dist/index.node.cjs"
+          "default": "./dist/cjs/index.node.js"
         }
       },
       "script": "./dist/bundle.iife.js",
       "default": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.browser.esm.js"
+        "default": "./dist/esm/index.browser.js"
       }
     },
-    "./esm-browser-bundle": "./dist/bundle.esm.min.js",
-    "./esm-browser-bundle-nomin": "./dist/bundle.esm.js",
+    "./esm-browser-bundle": "./dist/esm/bundle.min.js",
+    "./dist/esm/bundle.min.js": "./dist/esm/bundle.min.js",
+    "./esm-browser-bundle-nomin": "./dist/esm/bundle.js",
+    "./dist/esm/bundle.js": "./dist/esm/bundle.js",
     "./iife-browser-bundle": "./dist/bundle.iife.js",
+    "./dist/bundle.iife.js": "./dist/bundle.iife.js",
     "./umd-browser-bundle": "./dist/bundle.umd.js",
-    "./types": "./dist/index.d.ts"
+    "./dist/bundle.umd.js": "./dist/bundle.umd.js",
+    "./dist/cjs/index.node": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/cjs/index.node.js"
+    },
+    "./dist/esm/index.node": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/esm/index.node.js"
+    },
+    "./dist/esm/index.browser": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/esm/index.browser.js"
+    },
+    "./package.json": "./package.json"
   },
   "imports": {
     "#pkg": {
       "require": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.node.cjs"
+        "default": "./dist/cjs/index.node.js"
       },
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.node.esm.js"
+        "default": "./dist/esm/index.node.js"
       },
       "default": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/index.browser.esm.js"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/esm/index.browser.js"
       }
     }
   },
@@ -78,21 +89,23 @@
     "mocha-ts": "./.mocha-ts"
   },
   "scripts": {
+    "_build:cleantypes": "rimraf .types",
+    "_build:cjsAndesmPkgJsons": "node ./build/bin/post-build.js",
     "build": "run-s lint:src build:js lint:test docs",
-    "build:js": "rollup -c build/rollup.config.js",
-    "postbuild:js": "rimraf .types",
+    "build:js": "rollup -c build/rollup.config.mjs",
+    "postbuild:js": "run-s _build:cleantypes _build:cjsAndesmPkgJsons",
     "clean": "rimraf .mocha-ts coverage dist .types docs",
-    "coverage": "c8 --clean --check-coverage --exclude \"{src/ts/**/*.spec.ts,test,test-vectors,build}\" --exclude-after-remap --reporter=text --reporter=lcov node ./build/bin/mocha-ts.cjs --commonjs ",
-    "docs": "node build/build.docs.cjs",
+    "coverage": "c8 --clean --check-coverage --exclude \"{src/ts/**/*.spec.ts,src/ts/**/*.test.ts,test,test-vectors,build}\" --exclude-after-remap --reporter=text --reporter=lcov node ./build/bin/mocha-ts.js --commonjs ",
+    "docs": "node build/build.docs.js",
     "git:add": "git add -A",
     "lint": "ts-standard --fix",
-    "lint:src": "ts-standard --fix \"src/**/!(*.spec).ts\"",
-    "lint:test": "ts-standard --fix \"{test/**/*.ts,src/**/*.spec.ts}\"",
-    "mocha-ts": "node --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node ./build/bin/mocha-ts.cjs ",
-    "mocha-ts:cjs": "node ./build/bin/mocha-ts.cjs --commonjs ",
-    "mocha-ts:watch": "npm run mocha-ts:cjs -- --watch ",
-    "mocha-ts:browser": "node build/testing/browser/index.cjs ",
-    "mocha-ts:browser-headless": "node build/testing/browser/index.cjs headless ",
+    "lint:src": "ts-standard --fix \"src/**/!(*.spec|*.test).ts\"",
+    "lint:test": "ts-standard --fix \"{test/**/*.ts,src/**/*.spec.ts,src/**/*.test.ts}\"",
+    "mocha-ts": "node --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node ./build/bin/mocha-ts.js ",
+    "mocha-ts:cjs": "node ./build/bin/mocha-ts.js --commonjs ",
+    "mocha-ts:watch": "npm run mocha-ts:cjs -- --watch --timeout 0",
+    "mocha-ts:browser": "node build/testing/browser/index.js ",
+    "mocha-ts:browser-headless": "node build/testing/browser/index.js headless ",
     "preversion": "run-s clean lint:src build:js lint:test coverage test:browser-headless",
     "version": "run-s docs git:add",
     "postversion": "git push --follow-tags",
@@ -132,34 +145,34 @@
     }
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.1",
-    "@rollup/plugin-inject": "^5.0.3",
-    "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-multi-entry": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-replace": "^5.0.1",
-    "@rollup/plugin-terser": "^0.4.0",
-    "@rollup/plugin-typescript": "^11.1.0",
-    "@types/chai": "^4.2.22",
-    "@types/mocha": "^10.0.0",
-    "c8": "^7.12.0",
-    "chai": "^4.3.3",
-    "dotenv": "^16.0.3",
-    "glob": "^10.0.0",
-    "json5": "^2.2.0",
-    "minimatch": "^9.0.0",
-    "mocha": "^10.0.0",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-inject": "^5.0.5",
+    "@rollup/plugin-json": "^6.0.1",
+    "@rollup/plugin-multi-entry": "^6.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/chai": "^4.3.10",
+    "@types/mocha": "^10.0.4",
+    "c8": "^8.0.1",
+    "chai": "^4.3.10",
+    "dotenv": "^16.3.1",
+    "glob": "^10.3.10",
+    "json5": "^2.2.3",
+    "minimatch": "^9.0.3",
+    "mocha": "^10.2.0",
     "npm-run-all": "^4.1.5",
-    "pirates": "^4.0.1",
-    "puppeteer": "^19.1.2",
-    "rimraf": "^5.0.0",
-    "rollup": "^3.20.2",
-    "rollup-plugin-dts": "^5.3.0",
+    "pirates": "^4.0.6",
+    "puppeteer": "^21.5.1",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.3.0",
+    "rollup-plugin-dts": "^6.1.0",
     "ts-standard": "^12.0.2",
-    "tslib": "^2.3.1",
-    "typedoc": "~0.23.0",
-    "typedoc-plugin-markdown": "~3.14.0",
-    "typescript": "^5.0.3"
+    "tslib": "^2.6.2",
+    "typedoc": "^0.25.3",
+    "typedoc-plugin-markdown": "^3.17.1",
+    "typescript": "^5.0.0"
   },
   "dependencies": {
     "@juanelas/base64": "^1.1.2"

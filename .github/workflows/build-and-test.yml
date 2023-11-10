@@ -1,4 +1,4 @@
-name: build, test (node and browser), publish to NPM
+name: build, test (node and browser), coverage, publish to NPM
 
 on:
   push:
@@ -7,15 +7,35 @@ on:
   workflow_dispatch:
 
 jobs:
-  node:
-    name: build and run tests in node.js
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+          registry-url: "https://registry.npmjs.org"
+
+      - name: install
+        run: npm ci
+      
+      - name: build
+        run: npm run build
+
+  nodetests:
+    name: tests in Node.js
+    needs: [build]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [16.x, 18.x]
+        node-version: [18.x, 20.x, 21.x]
       # When set to true, GitHub cancels all in-progress jobs if any matrix job fails.
-      fail-fast: true
+      fail-fast: false
       # The maximum number of jobs that can run simultaneously. Set to 1 if you can't run tests in parallel
       # max-parallel: 1
     steps:
@@ -26,9 +46,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: "https://registry.npmjs.org"
 
       - name: install
-        run: npm ci
+        run: npm i
 
       - name: node esm tests
         run: npm run test:node-esm
@@ -36,23 +57,25 @@ jobs:
         #   VARIABLE1: ${{ secrets.VARIABLE1 }}
         #   VARIABLE2: ${{ secrets.VARIABLE2 }}
       
-      - name: node cjs tests with coverage
-        run: npm run coverage
+      - name: node cjs tests
+        run: npm run test:node-cjs
         # env:
         #   VARIABLE1: ${{ secrets.VARIABLE1 }}
         #   VARIABLE2: ${{ secrets.VARIABLE2 }}
 
-  browser:
+  browsertests:
+    needs: [build]
     name: tests in browser
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
 
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20.x
+          registry-url: "https://registry.npmjs.org"
 
       - name: install
         run: npm ci
@@ -63,31 +86,31 @@ jobs:
         #   VARIABLE1: ${{ secrets.VARIABLE1 }}
         #   VARIABLE2: ${{ secrets.VARIABLE2 }}
 
-  publish:
-    needs: [node, browser]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git checkout
-        uses: actions/checkout@v3
+  # publish:
+  #   needs: [nodetests, browsertests]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Git checkout
+  #       uses: actions/checkout@v3
 
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-          registry-url: "https://registry.npmjs.org"
+  #     - name: Install Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "20.x"
+  #         registry-url: "https://registry.npmjs.org"
 
-      - name: install
-        run: npm ci
+  #     # - name: install
+  #     #   run: npm ci
         
-      - name: node cjs tests with coverage
-        run: npm run coverage
+  #     # - name: coverage
+  #     #   run: npm run coverage
 
-      - name: send report to coveralls.io
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+  #     # - name: send report to coveralls.io
+  #     #   uses: coverallsapp/github-action@master
+  #     #   with:
+  #     #     github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: NPM publish
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #     - name: NPM publish
+  #       run: npm publish --access public
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

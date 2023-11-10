@@ -223,5 +223,5 @@ export function bigintToBase64 (a: bigint, urlsafe: boolean = false, padding: bo
  * @returns a bigint
  */
 export function base64ToBigint (a: string): bigint {
-  return bufToBigint(b64.decode(a) as Uint8Array)
+  return bufToBigint(b64.decode(a))
 }

@@ -41,7 +41,7 @@ The appropriate version for browser or node is automatically exported.
 
 > BigInt is [ES-2020](https://tc39.es/ecma262/#sec-bigint-objects). In order to use it with TypeScript you should set `target` (and probably also `lib`) to at least `es2020` in `tsconfig.json`.
 
-You can also download the [IIFE bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/main/dist/bundle.iife.js), the [ESM bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/main/dist/bundle.esm.min.js) or the [UMD bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/main/dist/bundle.umd.js) and manually add it to your project, or, if you have already installed `bigint-conversion` in your project, just get the bundles from `node_modules/bigint-conversion/dist/bundles/`.
+You can also download the [IIFE bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/main/dist/bundle.iife.js), the [ESM bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/main/dist/esm/bundle.min.js) or the [UMD bundle](https://raw.githubusercontent.com/juanelas/bigint-conversion/main/dist/bundle.umd.js) and manually add it to your project, or, if you have already installed `bigint-conversion` in your project, just get the bundles from `node_modules/bigint-conversion/dist/bundles/`.
 
 ## API reference documentation
 
