@@ -1,4 +1,4 @@
-# bigint-conversion - v2.4.2
+# bigint-conversion - v2.4.3
 
 Conversions from/to bingint to TypedArray/Buffer, hex
 
