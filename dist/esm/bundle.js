@@ -1,57 +1,4 @@
-const base64Encode = (bytes) => {
-    const CHUNK_SIZE = 0x8000;
-    const arr = [];
-    for (let i = 0; i < bytes.length; i += CHUNK_SIZE) {
-        arr.push(String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK_SIZE)));
-    }
-    return btoa(arr.join(''));
-};
-const base64Decode = (encoded) => {
-    return new Uint8Array(atob(encoded)
-        .split('')
-        .map((c) => c.charCodeAt(0)));
-};
-
-function encode(input, urlsafe = false, padding = true) {
-    let base64 = '';
-    {
-        const bytes = (typeof input === 'string')
-            ? (new TextEncoder()).encode(input)
-            : new Uint8Array(input);
-        base64 = base64Encode(bytes);
-    }
-    if (urlsafe)
-        base64 = base64ToBase64url(base64);
-    if (!padding)
-        base64 = removeBase64Padding(base64);
-    return base64;
-}
-function decode(base64, stringOutput = false) {
-    {
-        let urlsafe = false;
-        if (/^[0-9a-zA-Z_-]+={0,2}$/.test(base64)) {
-            urlsafe = true;
-        }
-        else if (!/^[0-9a-zA-Z+/]*={0,2}$/.test(base64)) {
-            throw new Error('Not a valid base64 input');
-        }
-        if (urlsafe)
-            base64 = base64urlToBase64(base64);
-        const bytes = base64Decode(base64);
-        return stringOutput
-            ? (new TextDecoder()).decode(bytes)
-            : bytes;
-    }
-}
-function base64ToBase64url(base64) {
-    return base64.replace(/\+/g, '-').replace(/\//g, '_');
-}
-function base64urlToBase64(base64url) {
-    return base64url.replace(/-/g, '+').replace(/_/g, '/').replace(/=/g, '');
-}
-function removeBase64Padding(str) {
-    return str.replace(/=/g, '');
-}
+function e(e,r=!1,t=!0){let n="";n=(e=>{const r=[];for(let t=0;t<e.length;t+=32768)r.push(String.fromCharCode.apply(null,e.subarray(t,t+32768)));return btoa(r.join(""))})("string"==typeof e?(new TextEncoder).encode(e):new Uint8Array(e));return r&&(n=function(e){return e.replace(/\+/g,"-").replace(/\//g,"_")}(n)),t||(n=n.replace(/=/g,"")),n}function r(e,r=!1){{let t=!1;if(/^[0-9a-zA-Z_-]+={0,2}$/.test(e))t=!0;else if(!/^[0-9a-zA-Z+/]*={0,2}$/.test(e))throw new Error("Not a valid base64 input");t&&(e=e.replace(/-/g,"+").replace(/_/g,"/").replace(/=/g,""));const n=new Uint8Array(atob(e).split("").map((e=>e.charCodeAt(0))));return r?(new TextDecoder).decode(n):n}}
 
 function parseHex(a, prefix0x = false, byteLength) {
     const hexMatch = a.match(/^(0x)?([\da-fA-F]+)$/);
@@ -131,10 +78,10 @@ function hexToBuf(hexStr, returnArrayBuffer = false) {
     }
 }
 function bigintToBase64(a, urlsafe = false, padding = true) {
-    return encode(bigintToBuf(a), urlsafe, padding);
+    return e(bigintToBuf(a), urlsafe, padding);
 }
 function base64ToBigint(a) {
-    return bufToBigint(decode(a));
+    return bufToBigint(r(a));
 }
 
 export { base64ToBigint, bigintToBase64, bigintToBuf, bigintToHex, bigintToText, bufToBigint, bufToHex, bufToText, hexToBigint, hexToBuf, parseHex, textToBigint, textToBuf };
